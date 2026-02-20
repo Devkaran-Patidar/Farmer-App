@@ -1,0 +1,87 @@
+/* Register Page Styles */
+
+.signup-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c);
+}
+
+.sign_up {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+    background-color: white;
+    color: black;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 5px 5px 15px rgba(88, 84, 84, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+.sign_up h1.text {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+#signup select,
+#signup input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 3px rgb(30, 29, 29);
+}
+
+#signup input[type="file"] {
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    color: black;
+}
+
+#signup button {
+    width: 100%;
+    background-color: rgb(4, 203, 34);
+    color: white;
+    padding: 10px 0;
+    border-radius: 20px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#signup button:hover {
+    background-color: rgb(28, 78, 188);
+}
+
+#signup p {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+#signup p .text1 {
+    color: rgb(28, 78, 188);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#signup p .text1:hover {
+    text-decoration: underline;
+}
