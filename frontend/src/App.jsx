@@ -33,7 +33,8 @@ import FarmerEarnings from "./Pages/Farmer_pages/FarmerEarning.jsx";
 import ProductList from "./Pages/Buyer_pages/ProductList.jsx";
 import Cart from "./Pages/Buyer_pages/Cart.jsx";
 import ShopNow from "./Pages/Buyer_pages/ShopNow.jsx";
-
+import Reciept from "./Auth_page/Receipt.jsx";
+import OrderHistory from "./Pages/Buyer_pages/OrderHistory.jsx"
 
 
 export default function App() {
@@ -86,6 +87,8 @@ export default function App() {
              <Route path="profile" element={<Profile />} />
             <Route path="cart" element={<Cart />} />
             <Route path="shop-now" element={<ShopNow />} />
+            <Route path="receipt/:orderId" element={<Reciept/>} />
+            <Route path="orderhistory" element={<OrderHistory/>} />
           </Route>
 
 

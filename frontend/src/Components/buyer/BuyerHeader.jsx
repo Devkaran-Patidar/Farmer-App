@@ -39,7 +39,7 @@ export default function BuyerHeader({ islogin, setIslogin }) {
           Cart
         </Link>
 
-        <Link to="/buyerhome/order" onClick={() => setMenuOpen(false)}>
+        <Link to="/buyerhome/orderhistory" onClick={() => setMenuOpen(false)}>
           Order
         </Link>
 

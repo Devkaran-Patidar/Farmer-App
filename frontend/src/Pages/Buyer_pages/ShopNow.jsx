@@ -17,30 +17,48 @@ const ShopNow = () => {
 
   const items = state.items;
   const total = state.total;
+const handleConfirmPurchase = async () => {
+  try {
+    let lastOrderId = null; // ✅ declare outside the loop
 
-  const handleConfirmPurchase = async () => {
-    try {
-      for (let item of items) {
-        await fetch(`${API_BASE}/api/farmer/buy-now/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            product_id: item.product.id,
-            quantity: item.quantity,
-          }),
-        });
+    for (let item of items) {
+      const res = await fetch(`${API_BASE}/api/farmer/buy-now/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_id: item.product.id, // make sure this exists
+          quantity: item.quantity,
+        }),
+        
+      });
+      // console.log(item.product);
+        // console.log(item.product.id);
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(`Failed to purchase ${item.product.name}: ${data.error || "Unknown error"}`);
+        return;
       }
-
-      alert("Purchase Successful 🎉");
-      navigate("/buyerhome");
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
+      
+      lastOrderId = data.order_id; // ✅ save order_id
+      console.log("Last Order ID:", lastOrderId);
     }
-  };
+
+    let opinion = confirm("Purchase Successful 🎉. Print Receipt?");
+    // console.log("Order ID from params:", orderId);
+    if (opinion) {
+      navigate(`/buyerhome/receipt/${lastOrderId}/`);
+    } else {
+      navigate("/buyerhome");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+};
 
   return (
     <div style={{ padding: 20 }}>

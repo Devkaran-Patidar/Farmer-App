@@ -50,7 +50,7 @@ export default function Contact() {
                 <i className ="fas fa-map-marker-alt"></i>
                 <div>
                     <h4>Our Office</h4>
-                    <p>Indore, Madhya Pradesh, India</p>
+                    <p>SVVV, Indore, Madhya Pradesh, India</p>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@ export default function Contact() {
                 <i className="fas fa-envelope"></i>
                 <div>
                     <h4>Email Us</h4>
-                    <p>support@agromart.com</p>
+                    <p> sviag@svvv.edu.in</p>
                 </div>
             </div>
 

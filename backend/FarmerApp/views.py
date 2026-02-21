@@ -153,6 +153,51 @@ def remove_cart_item(request, item_id):
     return Response({"message": "Item removed from cart"})
 
 
+from .models import Order, OrderItem
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@transaction.atomic
+def buy_now(request):
+    product_id = request.data.get("product_id")
+    quantity = int(request.data.get("quantity", 1))
+
+    product = get_object_or_404(productModel, id=product_id)
+
+    if product.available_quantity < quantity:
+        return Response({"error": "Not enough stock"}, status=400)
+
+    # Reduce stock
+    product.available_quantity -= quantity
+    product.save()
+
+    total_price = product.price_per_unit * quantity
+
+    # Save order
+    order = Order.objects.create(user=request.user, total_price=total_price)
+    OrderItem.objects.create(
+        order=order,
+        product=product,
+        quantity=quantity,
+        price=product.price_per_unit
+    )
+
+    # Remove item from cart if exists
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_item = CartItem.objects.get(cart=cart, product=product)
+        cart_item.delete()
+    except (Cart.DoesNotExist, CartItem.DoesNotExist):
+        pass
+
+    return Response({
+        "message": "Purchase successful",
+        "order_id": order.id,
+        "product": product.name,
+        "quantity": quantity,
+        "total_price": total_price,
+    })
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 @transaction.atomic
@@ -171,6 +216,15 @@ def buy_now(request):
 
     total_price = product.price_per_unit * quantity
 
+     # Save order
+    order = Order.objects.create(user=request.user, total_price=total_price)
+    OrderItem.objects.create(
+        order=order,
+        product=product,
+        quantity=quantity,
+        price=product.price_per_unit
+    )
+
      # Remove item from user's cart if exists
     try:
         cart = Cart.objects.get(user=request.user)
@@ -181,7 +235,50 @@ def buy_now(request):
 
     return Response({
         "message": "Purchase successful",
+        "order_id": order.id,
         "product": product.name,
         "quantity": quantity,
         "total_price": total_price
     })
+
+# receipt
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    items = [
+        {
+            "product": item.product.name,
+            "quantity": item.quantity,
+            "price": item.price,
+        } for item in order.items.all()
+    ]
+    return Response({
+        "order_id": order.id,
+        "total_price": order.total_price,
+        "created_at": order.created_at,
+        "items": items
+    })
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    data = []
+    for order in orders:
+        items = [
+            {
+                "product": item.product.name,
+                "quantity": item.quantity,
+                "price": item.price
+            } for item in order.items.all()
+        ]
+        data.append({
+            "order_id": order.id,
+            "total_price": order.total_price,
+            "created_at": order.created_at,
+            "items": items
+        })
+    return Response(data)
