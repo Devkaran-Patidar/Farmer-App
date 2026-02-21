@@ -4,27 +4,40 @@ export default function Features() {
   return (
     <section className="features-section">
       <div className="features-container">
-        <h2>App Features</h2>
+        <h2>Why Choose AgroMart?</h2>
 
         <div className="features-grid">
           <div className="feature-card">
-            <h3>Live Market Prices</h3>
-            <p>Farmers can view updated crop prices in real-time.</p>
+            <p className="feature-icon" >🌱</p>
+            <h3>Farm Fresh Quality</h3>
+            <p>Directly sourced from local farms daily - premium quality you can trust.</p>
           </div>
 
           <div className="feature-card">
-            <h3>Direct Orders</h3>
-            <p>Buyers can order directly from farmers without agents.</p>
+            <p className="feature-icon">⚡</p>
+            <h3>Scheduled & Reliable Delivery</h3>
+            <p>Order anytime - we deliver to your home scheduled and efficiently.</p>
           </div>
 
           <div className="feature-card">
+            <p className="feature-icon">💰</p>
+            <h3>Best Prices & Offers</h3>
+            <p>Competitive pricing - quality produce without high costs.</p>
+          </div>
+          <div className="feature-card">
+            <p className="feature-icon">✔️</p>
+            <h3>Quality Assured</h3>
+            <p>Every product is carefully inspected and quality-checked before Packing.</p>
+          </div>
+          <div className="feature-card">
+            <p className="feature-icon">📱</p>
+            <h3>Easy & Secure App</h3>
+            <p>User-friendly app for easy and seamless shopping.</p>
+          </div>
+          <div className="feature-card">
+            <p className="feature-icon">🔒</p>
             <h3>Secure Payments</h3>
-            <p>Safe and reliable digital payment system.</p>
-          </div>
-
-          <div className="feature-card">
-            <h3>Delivery Tracking</h3>
-            <p>Track order and shipment status easily.</p>
+            <p>Multiple payment options with bank-grade security. Your transactions are always protected</p>
           </div>
         </div>
       </div>

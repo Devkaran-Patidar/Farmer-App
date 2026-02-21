@@ -1,7 +1,9 @@
 .about-section {
   min-height: 90vh;
   padding: 4rem 1.5rem;
-  background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c);
+  background: linear-gradient(rgba(164, 229, 244, 0.41), #c5d6a071, #89ea89db);
+  /* background-color: rgb(83, 231, 142); */
+  /* background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c); */
   text-align: center;
 }
 

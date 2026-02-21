@@ -1,129 +1,131 @@
+.contact-container {
+  /* background-color: #f5f5f5; */
+  min-height: 90vh;
+  padding: 4rem;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-.contact-section {
-  height: 90vh; /* changed from 90vh */
+.contact-header h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.contact-header p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 60px;
+}
+
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  background: #e9e9e9;
+  width: 15rem;
+  padding: 2rem 1rem;
+  border-radius: 50px 20px;
+  transition: 0.3s ease;
+  border:1px solid transparent;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: rgb(54, 245, 54);
+}
+
+.icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c);
-  padding: 1rem;
+  border-radius: 15px;
 }
 
-.contact-container {
-  width: 80vw;      
-  height: 85vh;     
-  
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  
-  background: white;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  padding-bottom: 2rem;
+.email {
+  background: linear-gradient(135deg, #d8c7ff, #bca8ff);
+  color: #6b46c1;
 }
 
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.phone {
+  background: linear-gradient(135deg, #ffb3d9, #ff80bf);
+  color: #c2185b;
 }
 
-.contact-info h1 {
-  font-size: 1.5rem;
-  margin-bottom: 0.2rem;
-  color: #0f172a;
+.clock {
+  background: linear-gradient(135deg, #ffe0a3, #ffc266);
+  color: #e65100;
 }
 
-.contact-info p {
-  margin-bottom: 1.2rem;
-  color: #475569;
-  line-height: 1.2;
+.contact-card h3 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #222;
 }
 
-.info-box {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 0.3rem;
+.contact-card p {
+  font-size: 16px;
+  color: #444;
 }
 
-.info-box i {
-  font-size: 17px;
-  color: #22c55e;
-  margin-right: 10px;
-  margin-top: 4px;
+.highlight {
+  color: #2e7d32;
+  font-weight: 600;
 }
 
+@media (max-width: 768px) {
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-}
-
-.contact-form h2 {
-  margin-bottom: 1rem;
-  color: #0f172a;
-}
-
-.contact-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 9px;
-  margin-bottom: 10px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  font-size: 14px;
-  outline: none;
-  transition: 0.3s;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #22c55e;
-}
-
-.contact-form button {
-  padding: 10px;
-  background-color: #22c55e;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-.contact-form button:hover {
-  background-color: #16a34a;
-}
-
-
-@media (max-width: 900px) {
   .contact-container {
-    grid-template-columns: 1fr;
-    height: auto;      
-    width: 90vw;
-    padding: 1.5rem;
+    padding: 40px 15px;
+    min-height: auto;
   }
 
-  .contact-section {
-    height: auto;
-    padding: 2rem 1rem;
+  .contact-header h1 {
+    font-size: 32px;
   }
-}
 
-@media (max-width: 500px) {
-  .contact-info h1 {
-    font-size: 1.6rem;
+  .contact-header p {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .contact-cards {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .contact-card {
+    width: 100%;
+    max-width: 350px;
+    padding: 30px 20px;
+  }
+
+  .contact-card h3 {
+    font-size: 20px;
+  }
+
+  .contact-card p {
+    font-size: 15px;
+  }
+
+  .icon {
+    width: 60px;
+    height: 60px;
   }
 }

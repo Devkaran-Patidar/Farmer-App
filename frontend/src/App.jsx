@@ -20,6 +20,7 @@ import About from "./Pages/Home_pages/About.jsx"
 import Features from "./Pages/Home_pages/Features.jsx";
 import Product from "./Pages/Home_pages/Product.jsx";
 import Contact from "./Pages/Home_pages/Contact.jsx";
+import ContactForm from "./Pages/Home_pages/ContactForm.jsx";
 
 // farmer
 import FarmerHome from "./Pages/Farmer_pages/FarmerHome.jsx"
@@ -61,6 +62,8 @@ export default function App() {
             <Route path="features" element={<Features />} />
             <Route path="product" element={<Product />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="contact/contactform" element={<ContactForm />} />
+
 
             <Route  path="login"  element={<Login islogin={islogin} setIslogin={setIslogin} />} />
             <Route path="register"  element={<Register islogin={islogin} setIslogin={setIslogin} />} />

@@ -1,7 +1,11 @@
 import "./Home_header.css";
-import Logo from "../../assets/logoName.webp"
+import Logo from "../../assets/logoName.webp";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="header">
       <div className="header-container">
@@ -12,19 +16,19 @@ export default function Header() {
         </div>
 
         <div className="navbar">
-          <div className="baricon">
+          <div
+            className="baricon"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             <i className="fa-solid fa-bars"></i>
           </div>
-          <nav>
-            {/* <a href="#About">About</a>
-            <a href="#features">Features</a>
-            <a href="#Product">Product</a>
-            <a href="#contact">Contact</a> */}
-            <Link to="/">Home</Link>
-            <Link to="/product">Product</Link>
-            <Link to="/features">Features</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+
+          <nav className={menuOpen ? "active" : ""}>
+            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/product" onClick={() => setMenuOpen(false)}>Product</Link>
+            <Link to="/features" onClick={() => setMenuOpen(false)}>Features</Link>
+            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
           </nav>
         </div>
       </div>

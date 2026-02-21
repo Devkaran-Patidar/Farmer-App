@@ -1,5 +1,6 @@
 import "./Footer.css";
 import logo from "../../assets/logoName.webp";
+import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <>
@@ -51,8 +52,8 @@ export default function Footer() {
             <h3>Download App</h3>
             <p>Get the best direct market access experience for farmers.</p>
 
-            <button class="app-btn">Download on App Store</button>
-            <button class="app-btn">Get it on Google Play</button>
+            <button class="app-btn">  <Link to ="login">Login Now !</Link> </button>
+            <button class="app-btn">  <Link to ="register"></Link>Register Now !</button>
         </div>
 
     </div>
