@@ -2,7 +2,7 @@ import "../farmer/FarmerHeader.css";
 import logo from "../../assets/logoName.webp";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-
+import "./BuyerHeader.css"
 export default function BuyerHeader({ islogin, setIslogin }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,43 +14,51 @@ export default function BuyerHeader({ islogin, setIslogin }) {
   };
 
   return (
-    <header className="farmer-header">
-      <div className="logo">
-        <Link to="/">
-          <img src={logo} alt="logo" />
-        </Link>
-      </div>
+    <header className="header">
+     <div className="header-container">
+          <div className="logo">
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
+          </div>
 
-      {/* Hamburger */}
+
+      <div className="navbar">
       <div
-        className="hamburger"
+        className="baricon"
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        ☰
+        <i className="fa-solid fa-bars"></i>
       </div>
 
-      {/* Navigation */}
-      <div className={`nav-bar ${menuOpen ? "active" : ""}`}>
+      <nav className={ menuOpen ? "active" : ""}>
         <Link to="/buyerhome" onClick={() => setMenuOpen(false)}>
-          home
+          <i class="fa-solid fa-house"></i>
+          Home
         </Link>
 
         <Link to="/buyerhome/Cart" onClick={() => setMenuOpen(false)}>
+        <i class="fa-solid fa-cart-arrow-down"></i>
           Cart
         </Link>
 
         <Link to="/buyerhome/orderhistory" onClick={() => setMenuOpen(false)}>
+          <i class="fa-solid fa-bag-shopping"></i>
           Order
         </Link>
 
          <Link to="/buyerhome/profile" onClick={() => setMenuOpen(false)}>
+         <i class="fa-solid fa-user"></i>
           Profile
         </Link>
 
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
+      </nav>
+      </div>
       </div>
     </header>
+    
   );
 }

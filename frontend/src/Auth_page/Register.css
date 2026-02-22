@@ -4,8 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 90vh;
-    background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c);
+    min-height: 88vh;
+    /* background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c); */
+    /* padding-top: 8rem; */
+    padding: 2rem;
 }
 
 .sign_up {
@@ -14,11 +16,15 @@
     justify-content: start;
     align-items: center;
     gap: 2rem;
-    background-color: white;
+    /* background-color: white; */
+    background-color: rgba(231, 226, 226, 0.656);
+
     color: black;
     border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 5px 5px 15px rgba(88, 84, 84, 0.5);
+    padding: 1rem 3rem;
+    box-shadow:2px 2px 6px rgb(33, 31, 31);
+
+    /* box-shadow: 5px 5px 15px rgba(88, 84, 84, 0.5); */
     width: 100%;
     max-width: 400px;
 }
@@ -34,7 +40,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
     width: 100%;
 }
 
@@ -44,14 +50,24 @@
     padding: 10px 15px;
     border-radius: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
-    box-shadow: 0px 0px 3px rgb(30, 29, 29);
+    /* border: 1px solid #11d560; */
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-shadow:2px 2px 3px rgb(30, 29, 29);
+    color: black;
+
+    /* border: 1px solid black; */
+    /* box-shadow: 0px 0px 3px rgb(30, 29, 29); */
 }
 
 #signup input[type="file"] {
-    padding: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
     border: none;
-    background-color: transparent;
+    outline: none;
+    background-color: white;
     color: black;
 }
 
@@ -62,7 +78,8 @@
     padding: 10px 0;
     border-radius: 20px;
     border: none;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -72,16 +89,17 @@
 }
 
 #signup p {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     text-align: center;
 }
 
 #signup p .text1 {
-    color: rgb(28, 78, 188);
+    color: rgb(13, 211, 89);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 #signup p .text1:hover {
     text-decoration: underline;
+    color: blue;
 }

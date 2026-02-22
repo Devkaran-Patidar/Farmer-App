@@ -14,23 +14,24 @@ export default function FarmerHeader({ islogin, setIslogin }) {
   };
 
   return (
-    <header className="farmer-header">
-      <div className="logo">
-        <Link to="/">
-          <img src={logo} alt="logo" />
-        </Link>
-      </div>
+    <header className="header">
+      <div className="header-container">
+                <div className="logo">
+                  <Link to="/">
+                    <img src={logo} alt="logo" />
+                  </Link>
+                </div>
+      
 
-      {/* Hamburger */}
-      <div
-        className="hamburger"
+      <div className="navbar" >
+        <div className="baricon"
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        ☰
+        <i className="fa-solid fa-bars"></i>
       </div>
+      
 
-      {/* Navigation */}
-      <div className={`nav-bar ${menuOpen ? "active" : ""}`}>
+      <nav className={menuOpen ? "active" : ""}>
         {/* <Link to="/farmerhome" onClick={() => setMenuOpen(false)}>
           Dashboard
         </Link> */}
@@ -54,6 +55,8 @@ export default function FarmerHeader({ islogin, setIslogin }) {
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
+      </nav>
+      </div>
       </div>
     </header>
   );

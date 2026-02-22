@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const API_BASE = "http://127.0.0.1:8000"; // change if needed
+import "./productlist.css"
+import cart from "../../assets/cartlogo.png"
+
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [cartCount, setCartCount] = useState(0);
   const token = localStorage.getItem("access_token");
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
   // Fetch all products
-  const fetchProducts = async () => {
+  const fetchProducts = async (query ="") => {
     try {
-      const res = await fetch(`${API_BASE}/api/farmer/allproducts/`);
+      const res = await fetch(`${API_BASE}/api/farmer/allproducts/?search=${query}`);
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -89,12 +93,27 @@ const ProductPage = () => {
   });
 };
 
+
   return (
     <div style={{ padding: "20px" }}>
-      <h2>🛒 Products</h2>
-      <h4>Cart Items: {cartCount}</h4>
+      
+      <div className="searchbar">
+        <input type="text" name="searchbar" placeholder="Search here.."  value={searchTerm}onChange={(e) => {
+    setSearchTerm(e.target.value);
+    fetchProducts(e.target.value); // 🔥 live search
+  }} />
+        <i class="fa-solid fa-magnifying-glass"></i>
+        {/* <title>Search Here...</title> */}
+      </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+      <h2>🛒 Products</h2>
+      <div className="cart">
+        <img src={cart} alt="" width={50} className="cartlogo" />
+        <p className="count">{cartCount}</p>
+      </div>
+      {/* <h4>Cart Items: {cartCount}</h4> */}
+
+      <div className="allproduct">
         {products.map((product) => (
           <div
             key={product.id}
@@ -112,11 +131,12 @@ const ProductPage = () => {
             />
 
             <h3>{product.name}</h3>
-
-            <p>₹ {product.price_per_unit}</p>
-            <p>Available: {product.available_quantity}</p>
+            <p title={product.description} className="product-title">{product.description}</p>
+            <p>Price: ₹ {product.price_per_unit} {product.unit_type}</p>
+            <p>Available: {product.available_quantity} {product.unit_type}</p>
             <p>Quality: {product.quality_grade}</p>
             <p>location: {product.location} </p>
+            <p>Delivery: {product.delivery_option}</p>
             <p></p>
 
             <button

@@ -71,13 +71,14 @@ export default function MyProducts() {
               />
 
               <h3>{item.name}</h3>
+              <p> {item.description} </p>
               <p><strong>Category:</strong> {item.category}</p>
               <p><strong>Price:</strong> ₹{item.price_per_unit}</p>
               <p><strong>Quantity:</strong> {item.available_quantity} {item.unit_type}</p>
               <p><strong>Quality:</strong> {item.quality_grade}</p>
-              <p><strong>Type:</strong> {item.org_norg}</p>
+              <p><strong>Harvest Date</strong> {item.harvest_date} </p>
               <p><strong>Location:</strong> {item.location}</p>
-
+              <p><strong>Delivery:</strong> {item.delivery_option} </p>
               <div className="btn-group">
                 <button
                   className="edit-btn"

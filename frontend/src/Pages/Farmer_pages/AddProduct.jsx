@@ -15,7 +15,6 @@ export default function AddProduct() {
     quality_grade: "",
     harvest_date: "",
     description: "",
-    org_norg: "",
     location: "",
     delivery_option: "",
   });
@@ -146,16 +145,6 @@ export default function AddProduct() {
           onChange={handleChange}
           required
         />
-
-        <select
-          name="org_norg"
-          onChange={handleChange}
-          required
-        >
-          <option value="">Organic Type</option>
-          <option value="Organic">Organic</option>
-          <option value="Non-Organic">Non-Organic</option>
-        </select>
 
         <input
           type="text"

@@ -24,13 +24,6 @@ class productModel(models.Model):
     )
     harvest_date = models.DateField()
     description = models.CharField(max_length=150)
-
-    ORGANIC_CHOICES = [
-        ('Organic', 'Organic'),
-        ('Non-Organic', 'Non-Organic'),
-    ]
-
-    org_norg = models.CharField(max_length=20,choices = ORGANIC_CHOICES)
     location = models.CharField(max_length=100)
     delivery_option = models.CharField(max_length=50)
 

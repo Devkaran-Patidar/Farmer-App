@@ -1,11 +1,13 @@
 .features-section {
   min-height: 90vh;
-   padding: 4rem 1.5rem;
+   padding: 2rem 1.5rem;
   /* background: linear-gradient(to right, #e6f7e6, #d4f5d4); */
     /* background: linear-gradient(rgb(164, 229, 244), #ddf7a5, #4cac4c); */
   background: linear-gradient(rgba(164, 229, 244, 0.41), #c5d6a071, #89ea89db);
 
     text-align: center;
+    width: 100%;
+    /* border: 2px solid red; */
 }
 
 .features-container {
@@ -21,18 +23,24 @@
 .features-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  /* border: 1px solid red; */
 
 }
 
 .feature-card {
   width: 20rem;
+  height: 20rem;
   background: white;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  /* border: 2px solid rgb(21, 21, 21); */
+  box-shadow: 2px 2px 5px rgb(18, 18, 22);
   transition: 0.3s ease;
-  border-radius: 1rem 3rem;
+  border-radius: 0.5rem 3rem;
   border: 2px solid transparent;
 }
 .feature-icon{
@@ -40,7 +48,7 @@
 }
 .feature-card:hover {
   transform: translateY(-5px);
-  border-color:rgb(16, 16, 16) ;
+  border-color:rgb(25, 231, 77) ;
 }
 
 .feature-card h3 {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./Cart.css"
 const API_BASE = "http://127.0.0.1:8000";
 
 const CartPage = () => {
@@ -49,6 +49,7 @@ const CartPage = () => {
       },
       body: JSON.stringify({ quantity }),
     });
+    fetchCart(); 
   };
 
   const goToCheckout = () => {
@@ -63,21 +64,24 @@ const CartPage = () => {
   return (
     <div style={{ padding: "20px" }}>
       <h2>🛒 My Cart</h2>
-
+      <div className="cart-cards">
+        
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <>
           {cartItems.map((item) => (
-            <div key={item.id} style={{ border: "1px solid #ccc", padding: 10, marginBottom: 10 }}>
+            <div key={item.id} style={{ border: "1px solid #ccc", padding: 10, marginBottom: 10}}>
               <h3>{item.product.name}</h3>
-              <p>₹ {item.product.price_per_unit}</p>
-
+              <p>₹ {item.product.price_per_unit} {item.product.unit_type} </p>
+              
+              <label htmlFor="quantity">Quantity</label>
               <input
+              id="quantity"
                 type="number"
                 min="1"
-                defaultValue={item.quantity}
-                onBlur={(e) =>
+               value={item.quantity}
+                onChange={(e) =>
                   handleUpdateQuantity(item.id, Number(e.target.value))
                 }
               />
@@ -101,6 +105,7 @@ const CartPage = () => {
           </button>
         </>
       )}
+      </div>
     </div>
   );
 };

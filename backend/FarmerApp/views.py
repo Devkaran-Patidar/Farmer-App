@@ -64,12 +64,21 @@ def Editproduct(request, id):
 
 
 from rest_framework.permissions import AllowAny
+from django.db.models import Q
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def AllProducts(request):
+    search = request.GET.get('search', '')  # get search query
     qs = productModel.objects.all().order_by('-id')
+    if search:
+        qs = qs.filter(
+            Q(name__icontains=search) |
+            Q(category__icontains=search)
+        )
+
     serializer = productSerializer(qs, many=True)
     return Response(serializer.data)
+
 
 
 
@@ -167,49 +176,6 @@ def buy_now(request):
     if product.available_quantity < quantity:
         return Response({"error": "Not enough stock"}, status=400)
 
-    # Reduce stock
-    product.available_quantity -= quantity
-    product.save()
-
-    total_price = product.price_per_unit * quantity
-
-    # Save order
-    order = Order.objects.create(user=request.user, total_price=total_price)
-    OrderItem.objects.create(
-        order=order,
-        product=product,
-        quantity=quantity,
-        price=product.price_per_unit
-    )
-
-    # Remove item from cart if exists
-    try:
-        cart = Cart.objects.get(user=request.user)
-        cart_item = CartItem.objects.get(cart=cart, product=product)
-        cart_item.delete()
-    except (Cart.DoesNotExist, CartItem.DoesNotExist):
-        pass
-
-    return Response({
-        "message": "Purchase successful",
-        "order_id": order.id,
-        "product": product.name,
-        "quantity": quantity,
-        "total_price": total_price,
-    })
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-@transaction.atomic
-def buy_now(request):
-    product_id = request.data.get("product_id")
-    quantity = int(request.data.get("quantity", 1))
-
-    product = get_object_or_404(productModel, id=product_id)
-
-    if product.available_quantity < quantity:
-        return Response({"error": "Not enough stock"}, status=400)
-
     # Reduce stock immediately
     product.available_quantity -= quantity
     product.save()
@@ -282,3 +248,60 @@ def my_orders(request):
             "items": items
         })
     return Response(data)
+
+
+
+# receipt
+from django.db import transaction
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@transaction.atomic
+def create_order(request):
+    items = request.data.get("items", [])
+    total = request.data.get("total")
+
+    if not items:
+        return Response({"error": "No items provided"}, status=400)
+
+    order = Order.objects.create(
+        user=request.user,
+        total_price=total
+    )
+
+    for item in items:
+        product_id = item["product"]["id"]
+        quantity = int(item["quantity"])
+
+        product = get_object_or_404(productModel, id=product_id)
+
+        # ✅ Check stock
+        if product.available_quantity < quantity:
+            return Response(
+                {"error": f"Not enough stock for {product.name}"},
+                status=400
+            )
+
+        # ✅ Reduce stock
+        product.available_quantity -= quantity
+        product.save()
+
+        # ✅ Create order item
+        OrderItem.objects.create(
+            order=order,
+            product=product,
+            quantity=quantity,
+            price=product.price_per_unit
+        )
+
+        # ✅ Remove from cart
+        try:
+            cart = Cart.objects.get(user=request.user)
+            CartItem.objects.filter(cart=cart, product=product).delete()
+        except Cart.DoesNotExist:
+            pass
+
+    return Response({
+        "message": "Order created successfully",
+        "order_id": order.id
+    })

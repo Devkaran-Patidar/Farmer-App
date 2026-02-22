@@ -10,7 +10,7 @@
 
 .mainhome-hero {
   width: 100%;
-  min-height: 90vh;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
   
   padding-bottom: 3rem;
     /* padding: 4rem 1rem; */
-    
+  /* background: url(../../assets/homepagebg.png) no-repeat center center/cover; */
   background: linear-gradient(rgba(164, 229, 244, 0.41), #c5d6a071, #89ea89db);
 }
 
@@ -65,7 +65,7 @@
 
 .btn:hover {
   background-color: rgb(28, 78, 188);
-  scale: 1.2;
+  transform: scale(1.1);
   /* border: none; */
 }
 
