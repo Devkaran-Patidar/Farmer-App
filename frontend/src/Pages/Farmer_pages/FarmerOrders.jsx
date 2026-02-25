@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function FarmerOrders() {
+function FarmerOrders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -8,46 +9,54 @@ export default function FarmerOrders() {
   }, []);
 
   const fetchOrders = async () => {
-    const access = localStorage.getItem("access");
+    const token = localStorage.getItem("access_token");
 
-    const response = await fetch(
+    const res = await axios.get(
       "http://127.0.0.1:8000/api/farmer/orders/",
       {
         headers: {
-          Authorization: `Bearer ${access}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
 
-    const data = await response.json();
-    setOrders(data);
+    setOrders(res.data);
   };
+const markDelivered = async (itemId) => {
+  const token = localStorage.getItem("access");
 
+  await axios.patch(
+    `http://127.0.0.1:8000/api/farmer/order-item/${itemId}/deliver/`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  fetchOrders();
+};
   return (
-    <div className="orders-container">
-      <h2>My Orders</h2>
+    <div>
+      <h2>Farmer Orders</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.product_name}</td>
-              <td>{order.quantity}</td>
-              <td>₹ {order.total_price}</td>
-              <td>{new Date(order.created_at).toLocaleDateString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {orders.map((order, index) => (
+        <div key={index} style={{border:"1px solid gray", padding:10, margin:10}}>
+          <p><b>Name:</b> {order.buyer}</p>
+          <p><b>Email:</b> {order.email}</p>
+          <p><b>Order ID:</b> {order.order_id}</p>
+          <p><b>Product Name:</b> {order.product_name}</p>
+          <p><b>Quantity:</b> {order.quantity}</p>
+          <p><b>Date:</b> {order.created_at}</p>
+          <p><b>Ammount:</b> {order.total_ammount}</p>
+          <button onClick={() => markDelivered(order.id)}>
+  Mark Delivered
+</button>
+        </div>
+      ))}
     </div>
   );
 }
+
+export default FarmerOrders;

@@ -1,38 +1,78 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function FarmerEarnings() {
-  const [earnings, setEarnings] = useState(null);
+function FarmerEarning() {
+  const [earning, setEarning] = useState(0);
+  const [deliveredOrders, setDeliveredOrders] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchEarnings();
   }, []);
 
   const fetchEarnings = async () => {
-    const access = localStorage.getItem("access");
+    try {
+      const token = localStorage.getItem("access_token");
 
-    const response = await fetch(
-      "http://127.0.0.1:8000/api/farmer/earnings/",
-      {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      }
-    );
+      const res = await axios.get(
+        "http://127.0.0.1:8000/api/farmer/earning/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    const data = await response.json();
-    setEarnings(data);
+      setEarning(res.data.total_earning || 0);
+      setDeliveredOrders(res.data.delivered_orders || 0);
+      setLoading(false);
+
+    } catch (err) {
+      setError("Failed to load earnings");
+      setLoading(false);
+    }
   };
 
-  return (
-    <div className="earnings-container">
-      <h2>Earnings Summary</h2>
+  if (loading) {
+    return <h3>Loading earnings...</h3>;
+  }
 
-      {earnings && (
-        <div className="earnings-card">
-          <h3>Total Orders: {earnings.total_orders}</h3>
-          <h3>Total Earnings: ₹ {earnings.total_earnings}</h3>
-        </div>
-      )}
+  if (error) {
+    return <h3 style={{ color: "red" }}>{error}</h3>;
+  }
+
+  return (
+    <div style={{
+      maxWidth: "500px",
+      margin: "30px auto",
+      padding: "20px",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      boxShadow: "0 0 10px rgba(0,0,0,0.1)"
+    }}>
+      <h2>Farmer Earnings Dashboard</h2>
+
+      <hr />
+
+      <p><b>Total Delivered Orders:</b> {deliveredOrders}</p>
+
+      <p style={{ fontSize: "20px", color: "green" }}>
+        <b>Total Earnings:</b> ₹ {earning}
+      </p>
+
+      <button
+        onClick={fetchEarnings}
+        style={{
+          padding: "8px 15px",
+          marginTop: "10px",
+          cursor: "pointer"
+        }}
+      >
+        Refresh
+      </button>
     </div>
   );
 }
+
+export default FarmerEarning;

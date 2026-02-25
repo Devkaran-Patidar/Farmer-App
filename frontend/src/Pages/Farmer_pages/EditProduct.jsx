@@ -78,7 +78,6 @@ export default function EditProduct() {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
-            // ❌ DO NOT set Content-Type
           },
           body: formData,
         }
@@ -108,19 +107,20 @@ export default function EditProduct() {
     
 
        <div className="formbox">
-         <label htmlFor="">Upload New Photo</label>
-        <input type="file" name="product_img" onChange={handleChange} />
+         <label htmlFor="photo">Upload New Photo</label>
+        <input id="photo" type="file" name="product_img" onChange={handleChange} />
        </div>
 
       <div className="formbox">
-         <label htmlFor="">Name</label>
-        <input name="name"  value={product.name}  onChange={handleChange}  required
+         <label htmlFor="name">Name</label>
+        <input id="name" name="name"  value={product.name}  onChange={handleChange}  required
         />
       </div>
 
       <div className="formbox">
-          <label htmlFor="">Category</label>
+          <label htmlFor="category">Category</label>
           <input
+          id="category"
           name="category"
           value={product.category}
           onChange={handleChange}
@@ -165,6 +165,7 @@ export default function EditProduct() {
       <div className="formbox">
         <label htmlFor="grade">select Quality Grade</label>
         <select
+        id="grade"
           name="quality_grade"
           value={product.quality_grade}
           onChange={handleChange}

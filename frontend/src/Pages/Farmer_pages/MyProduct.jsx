@@ -73,7 +73,7 @@ export default function MyProducts() {
               <h3>{item.name}</h3>
               <p> {item.description} </p>
               <p><strong>Category:</strong> {item.category}</p>
-              <p><strong>Price:</strong> ₹{item.price_per_unit}</p>
+              <p><strong>Price:</strong> ₹{item.price_per_unit} {item.unit_type} </p>
               <p><strong>Quantity:</strong> {item.available_quantity} {item.unit_type}</p>
               <p><strong>Quality:</strong> {item.quality_grade}</p>
               <p><strong>Harvest Date</strong> {item.harvest_date} </p>

@@ -305,3 +305,79 @@ def create_order(request):
         "message": "Order created successfully",
         "order_id": order.id
     })
+
+
+# farmer order history
+from rest_framework.views import APIView
+from .models import OrderItem
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def FarmerOrdersView(request):
+        farmer = request.user
+
+        order_items = OrderItem.objects.filter(
+            product__farmer_id=farmer
+        ).select_related("order", "product")
+
+        data = []
+
+        for item in order_items:
+            data.append({
+                 "id": item.id,
+                "order_id": item.order.id,
+                "email":item.order.user.email,
+                "product_name": item.product.name,
+                "total_ammount":item.order.total_price,
+                "quantity": item.quantity,
+                "price": item.price,
+                "buyer": item.order.user.username,
+                "created_at": item.order.created_at,
+            })
+
+        return Response(data)
+
+
+# order deliver
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def mark_as_delivered(request, item_id):
+
+    try:
+        item = OrderItem.objects.get(
+            id=item_id,
+            product__farmer_id=request.user
+        )
+
+        item.status = "Delivered"
+        item.save()
+
+        return Response({"message": "Marked as Delivered"})
+
+    except OrderItem.DoesNotExist:
+        return Response({"error": "Not allowed"}, status=403)
+    
+
+# earning of farmer
+from django.db.models import F, Sum, DecimalField, ExpressionWrapper
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def FarmerEarning(request):
+
+    farmer = request.user
+
+    total = OrderItem.objects.filter(
+        product__farmer_id=farmer,
+        # status="Delivered"
+    ).aggregate(
+        total_earning=Sum(F('price') * F('quantity'))
+    )
+
+    return Response({
+        "total_earning": total["total_earning"] or 0,
+        "delivered_orders": OrderItem.objects.filter(
+        product__farmer_id=request.user,
+        # status="Delivered"
+    ).count()
+    })

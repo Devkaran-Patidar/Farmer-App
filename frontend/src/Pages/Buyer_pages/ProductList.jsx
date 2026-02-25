@@ -68,7 +68,7 @@ const ProductPage = () => {
 
   if (res.ok) {
     alert("Added to cart!");
-    navigate("/buyerhome/cart");   // ✅ REDIRECT HERE
+    navigate("/buyerhome/cart");   //  REDIRECT HERE
   }
 };
 
@@ -100,7 +100,7 @@ const ProductPage = () => {
       <div className="searchbar">
         <input type="text" name="searchbar" placeholder="Search here.."  value={searchTerm}onChange={(e) => {
     setSearchTerm(e.target.value);
-    fetchProducts(e.target.value); // 🔥 live search
+    fetchProducts(e.target.value); //  live search
   }} />
         <i class="fa-solid fa-magnifying-glass"></i>
         {/* <title>Search Here...</title> */}
