@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_BASE = "http://127.0.0.1:8000"; // change if needed
+const API_BASE = "http://127.0.0.1:8000"; 
 import "./productlist.css"
-import cart from "../../assets/cartlogo.png"
-
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -68,7 +66,7 @@ const ProductPage = () => {
 
   if (res.ok) {
     alert("Added to cart!");
-    navigate("/buyerhome/cart");   //  REDIRECT HERE
+    navigate("/buyerhome/cart");  
   }
 };
 
@@ -95,77 +93,53 @@ const ProductPage = () => {
 
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px" , display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
       
       <div className="searchbar">
         <input type="text" name="searchbar" placeholder="Search here.."  value={searchTerm}onChange={(e) => {
-    setSearchTerm(e.target.value);
-    fetchProducts(e.target.value); //  live search
-  }} />
-        <i class="fa-solid fa-magnifying-glass"></i>
-        {/* <title>Search Here...</title> */}
+          setSearchTerm(e.target.value);
+          fetchProducts(e.target.value);  }} />
+          <i class="fa-solid fa-magnifying-glass"></i>
+
       </div>
 
-      <h2>🛒 Products</h2>
-      <div className="cart">
+      <div className="main-product-heading" >
+        <h2>🛒 Products </h2>
+        <h4>Cart Items: {cartCount}</h4>
+      </div>
+      {/* <div className="cart">
         <img src={cart} alt="" width={50} className="cartlogo" />
         <p className="count">{cartCount}</p>
-      </div>
-      {/* <h4>Cart Items: {cartCount}</h4> */}
+      </div> */}
+    
 
       <div className="allproduct">
         {products.map((product) => (
-          <div
-            key={product.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "15px",
-              width: "250px",
-              borderRadius: "8px",
-            }}
-          >
-            <img
-              src={API_BASE+product.product_img}
-              alt={product.name}
-              style={{ width: "100%", height: "150px", objectFit: "cover" }}
-            />
+          <div className="product-card">
+              <div className="image-wrapper">
+                  <img src={API_BASE+product.product_img} alt={product.name}/>
+                  <span className="badge">Quality {product.quality_grade} </span>
+                </div>
 
-            <h3>{product.name}</h3>
-            <p title={product.description} className="product-title">{product.description}</p>
-            <p>Price: ₹ {product.price_per_unit} {product.unit_type}</p>
-            <p>Available: {product.available_quantity} {product.unit_type}</p>
-            <p>Quality: {product.quality_grade}</p>
-            <p>location: {product.location} </p>
-            <p>Delivery: {product.delivery_option}</p>
-            <p></p>
+                <div className="card-body">
+                    <h2>{product.name}</h2>
+                    <p className="description"> <title className="product-title"> {product.description}</title> </p>
 
-            <button
-              onClick={() => handleAddToCart(product.id)}
-              style={{
-                marginRight: "10px",
-                padding: "6px 10px",
-                backgroundColor: "green",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Add to Cart
-            </button>
+                  <div className="price-stock">
+                      <span className="price">₹{product.price_per_unit} <small>/{product.unit_type}</small></span>
+                   <span className="stock">{product.available_quantity} {product.unit_type} Available  </span>
+                  </div>
 
-            <button
-              onClick={() => handleBuyNow(product)}
-              style={{
-                padding: "6px 10px",
-                backgroundColor: "orange",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Buy Now
-            </button>
-          </div>
+                  <div className="location">
+                   📍  {product.location} | 🚚 {product.delivery_option}
+                  </div>
+                    <p className="harvest">Harvest Date: {product.harvest_date}</p>
+                  <div className="buttons">
+                   <button className="cart-btn"  onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+                    <button className="buy-btn"  onClick={() => handleBuyNow(product)}>Buy Now</button>
+                 </div>
+                </div>
+            </div>
         ))}
       </div>
     </div>

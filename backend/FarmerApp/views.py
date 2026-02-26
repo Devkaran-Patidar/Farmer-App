@@ -75,7 +75,7 @@ def AllProducts(request):
             Q(name__icontains=search) |
             Q(category__icontains=search)
         )
-
+    qs = qs.order_by('?') 
     serializer = productSerializer(qs, many=True)
     return Response(serializer.data)
 

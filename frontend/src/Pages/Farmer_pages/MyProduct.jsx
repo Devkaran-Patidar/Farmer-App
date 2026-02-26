@@ -64,38 +64,33 @@ export default function MyProducts() {
           <p className="no-product">No Products Found</p>
         ) : (
           products.map((item) => (
-            <div key={item.id} className="product-card">
-              <img
-                src={`http://127.0.0.1:8000${item.product_img}`}
-                alt={item.name}
-              />
+        
+          <div className="product-card">
+              <div className="image-wrapper">
+               <img src={`http://127.0.0.1:8000${item.product_img}`}
+                     alt={item.name} />
+               
+                  <span className="badge">Quality {item.quality_grade} </span>
+                </div>
 
-              <h3>{item.name}</h3>
-              <p> {item.description} </p>
-              <p><strong>Category:</strong> {item.category}</p>
-              <p><strong>Price:</strong> ₹{item.price_per_unit} {item.unit_type} </p>
-              <p><strong>Quantity:</strong> {item.available_quantity} {item.unit_type}</p>
-              <p><strong>Quality:</strong> {item.quality_grade}</p>
-              <p><strong>Harvest Date</strong> {item.harvest_date} </p>
-              <p><strong>Location:</strong> {item.location}</p>
-              <p><strong>Delivery:</strong> {item.delivery_option} </p>
-              <div className="btn-group">
-                <button
-                  className="edit-btn"
-                  onClick={() =>
-                    navigate(`/farmerhome/editproduct/${item.id}`)
-                  }
-                >
-                  Edit
-                </button>
+                <div className="card-body">
+                    <h2>{item.name}</h2>
+                    <p className="description">  {item.description} </p>
 
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Delete
-                </button>
-              </div>
+                  <div className="price-stock">
+                      <span className="price">₹{item.price_per_unit} <small>/{item.unit_type}</small></span>
+                   <span className="stock">{item.available_quantity} {item.unit_type} Available  </span>
+                  </div>
+
+                    <p className="harvest">Harvest Date: {item.harvest_date}</p>
+                  <div className="location">
+                   📍  {item.location} | 🚚 {item.delivery_option}
+                  </div>
+                  <div className="buttons">
+                   <button className="cart-btn" onClick={() =>  navigate(`/farmerhome/editproduct/${item.id}`)  }>Edit</button>
+                    <button className="buy-btn"  onClick={() => handleDelete(item.id)}>Delete</button>
+                 </div>
+                </div>
             </div>
           ))
         )}
