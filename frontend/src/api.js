@@ -1,5 +1,5 @@
 // Mock backend API calls
-const API_URL = "http://localhost:8000/api"; // replace with your backend
+const API_URL = "http://localhost:8000/"; 
 
 export const fetchProducts = async () => {
   const res = await fetch(`${API_URL}/products/`);

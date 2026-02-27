@@ -39,10 +39,11 @@ const markDelivered = async (itemId) => {
 };
   return (
     <div>
-      <h2>Farmer Orders</h2>
-
+      <h2 style={{textAlign:"center",color:"green"}}> <b>ORDERS</b> </h2>
+        
+      <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center",gap:"1rem" ,}}>  
       {orders.map((order, index) => (
-        <div key={index} style={{border:"1px solid gray", padding:10, margin:10}}>
+        <div key={index} style={{border:"1px solid gray", padding:15, margin:10,width:"20rem",background:"rgb(250, 350, 300"}}>
           <p><b>Name:</b> {order.buyer}</p>
           <p><b>Email:</b> {order.email}</p>
           <p><b>Order ID:</b> {order.order_id}</p>
@@ -51,10 +52,12 @@ const markDelivered = async (itemId) => {
           <p><b>Date:</b> {order.created_at}</p>
           <p><b>Ammount:</b> {order.total_ammount}</p>
           <button onClick={() => markDelivered(order.id)}>
-  Mark Delivered
-</button>
+              Mark Delivered
+            </button>
         </div>
+      
       ))}
+      </div>
     </div>
   );
 }

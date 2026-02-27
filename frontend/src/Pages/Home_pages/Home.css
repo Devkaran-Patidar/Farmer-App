@@ -43,6 +43,7 @@
 }
 
 .buttons {
+  /* width: 40%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +66,7 @@
 
 .btn:hover {
   background-color: rgb(28, 78, 188);
-  transform: scale(1.1);
+  transform: scale(1.03);
   /* border: none; */
 }
 
@@ -108,7 +109,7 @@
     font-size: 1.2rem;
   }
   .btn {
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 0.8rem;
     font-size: 0.4rem;
   }
 }

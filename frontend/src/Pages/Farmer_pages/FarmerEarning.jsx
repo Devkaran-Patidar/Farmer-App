@@ -43,7 +43,7 @@ function FarmerEarning() {
   }
 
   return (
-    <div style={{
+    <section style={{
       maxWidth: "500px",
       margin: "30px auto",
       padding: "20px",
@@ -71,7 +71,7 @@ function FarmerEarning() {
       >
         Refresh
       </button>
-    </div>
+    </section>
   );
 }
 

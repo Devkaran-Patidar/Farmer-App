@@ -15,9 +15,7 @@ export default function Receipt() {
   const [profile, setProfile] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
 
-  // =======================
-  // FETCH ORDER
-  // =======================
+
   useEffect(() => {
     if (!orderId) {
       alert("No order found");
@@ -110,9 +108,6 @@ export default function Receipt() {
     newWindow.print();
   };
 
-  // =======================
-  // LOADING STATES
-  // =======================
   if (!order) return <h3>Loading receipt...</h3>;
 
   return (
