@@ -50,7 +50,7 @@ export default function MyProducts() {
 
   return (
     <div className="myproducts-container">
-      <h2>My Products</h2>
+      {/* <h2>My Products</h2> */}
 
       <button
         className="add-btn"
@@ -65,24 +65,26 @@ export default function MyProducts() {
         ) : (
           products.map((item) => (
         
-          <div className="product-card">
+          <div className="product-card"
+          onClick={() => navigate(`/farmerhome/product/${item.id}`)}
+              style={{ cursor: "pointer" }}>
               <div className="image-wrapper">
                <img src={`http://127.0.0.1:8000${item.product_img}`}
                      alt={item.name} />
                
-                  <span className="badge">Quality {item.quality_grade} </span>
+                  <span className="badge">{item.quality_grade} ⭐</span>
                 </div>
 
                 <div className="card-body">
                     <h2>{item.name}</h2>
-                    <p className="description">  {item.description} </p>
+                    {/* <p className="description">  {item.description} </p> */}
 
                   <div className="price-stock">
                       <span className="price">₹{item.price_per_unit} <small>/{item.unit_type}</small></span>
                    <span className="stock">{item.available_quantity} {item.unit_type} Available  </span>
                   </div>
 
-                    <p className="harvest">Harvest Date: {item.harvest_date}</p>
+                    {/* <p className="harvest">Harvest Date: {item.harvest_date}</p> */}
                   <div className="location">
                    📍  {item.location} | 🚚 {item.delivery_option}
                   </div>

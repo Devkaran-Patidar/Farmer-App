@@ -1,0 +1,149 @@
+
+.product-details-container{
+    /* border: 2px solid red; */
+    padding: 0rem  4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 2rem;
+    background-color: rgb(237, 231, 224);
+
+}
+
+.product-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.slider{
+    width: 30rem;
+
+    padding: 0.2rem;
+
+    border: 1px solid gray;
+    box-shadow: 0px 0px 10px black;
+}
+
+
+.overview{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.buttonss {
+  width: 20rem;
+  /* padding: 2rem; */
+    margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.disclaimer{
+    width: 50rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width:950px) {
+        .slider{
+            width: 25rem;
+
+        }
+        .product-details-container{
+            padding: 0px  20px;
+        }
+
+        .buttonss{
+            width: 15rem;
+        }
+
+        .disclaimer{
+            width: 40rem;
+        }
+}
+
+@media (max-width:750px) {
+        .slider{
+            width: 20rem;
+
+        }
+        .product-details-container{
+            padding: 0px  10px;
+        }
+
+        .buttonss{
+            width: 15rem;
+        }
+
+        
+        .disclaimer{
+            width: 35rem;
+        }
+}
+
+@media (max-width:650px) {
+        .product-1{
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+
+        }  
+        
+        .product-details-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            /* gap: 2rem; */
+            padding-left: 2rem;
+}
+    
+        .disclaimer{
+            width: 30rem;
+        }
+
+}
+
+@media (max-width:500px) {
+       .slider{
+    width: 18rem;
+
+    padding: 0.5rem;
+
+    border: 1px solid gray;
+}   
+        .product-details-container{
+            gap: 20px;
+            padding-left: 20px;
+            padding-top: 1rem;
+        }
+
+        .product-1{
+            gap: 0px;
+            padding-left: 20px;
+        }
+
+        .buttonss{
+            width: 18rem;
+        }
+
+        .back{
+            display: none;
+        }
+    
+        .disclaimer{
+            width: 20rem;
+        }
+
+
+}
+
+@media (max-width:350px) {
+        
+        .disclaimer{
+            width: 15rem;
+        }
+}
+

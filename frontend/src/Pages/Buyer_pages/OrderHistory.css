@@ -1,0 +1,39 @@
+
+.orderhistory-page{
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+.all-order-his{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.single-order{
+    border: 1px soid black;
+    background-color: rgb(232, 224, 214);
+    border-radius: 10px;
+    padding: 2rem 4rem;
+
+    height: 25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.view-reciept-butt{
+    border: none;
+    background-color: rgb(20, 194, 20);
+    padding: 10px 20px;
+    border-radius: 10px;
+}

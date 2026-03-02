@@ -1,0 +1,24 @@
+.mycart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptycart{
+    /* border: 2px solid red; */
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.emptycartbutt{
+    border: none;
+    background-color: rgb(19, 202, 19);
+    padding: 10px 40px;
+    border-radius: 20px;
+}

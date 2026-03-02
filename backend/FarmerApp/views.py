@@ -381,3 +381,29 @@ def FarmerEarning(request):
         # status="Delivered"
     ).count()
     })
+
+
+
+
+# @api_view(['GET'])
+# def ProductDetails(req ,product_id):
+
+
+
+from rest_framework import status
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def product_details(request, product_id):
+    try:
+        product = productModel.objects.get(id=product_id)
+    except productModel.DoesNotExist:
+        return Response(
+            {"error": "Product not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    serializer = productSerializer(product)
+    return Response({
+        "success": True,
+        "product": serializer.data,
+    })   

@@ -36,7 +36,7 @@ import Cart from "./Pages/Buyer_pages/Cart.jsx";
 import ShopNow from "./Pages/Buyer_pages/ShopNow.jsx";
 import Reciept from "./Auth_page/Receipt.jsx";
 import OrderHistory from "./Pages/Buyer_pages/OrderHistory.jsx"
-
+import ProductDetails from "./Pages/Buyer_pages/ProductDetails.jsx";
 
 export default function App() {
   // const [islogin, setIslogin] =useState(false);
@@ -79,6 +79,7 @@ export default function App() {
             <Route path="editproduct/:id" element={<EditProduct/>} />
             <Route path="farmerorders" element={<FarmerOrders/>} />
             <Route path="farmerearning" element={<FarmerEarnings/>} />
+            <Route path="product/:id" element={<ProductDetails />} />
 
           </Route>
 
@@ -92,6 +93,7 @@ export default function App() {
             <Route path="shop-now" element={<ShopNow />} />
             <Route path="receipt/:orderId" element={<Reciept/>} />
             <Route path="orderhistory" element={<OrderHistory/>} />
+            <Route path="product/:id" element={<ProductDetails />} />
           </Route>
 
 

@@ -126,10 +126,11 @@ export default function AddProduct() {
           required
         >
           <option value="">Select Quality</option>
-          <option value="A">Grade A</option>
-          <option value="B">Grade B</option>
-          <option value="Organic">Organic</option>
-          <option value="Premium">Premium</option>
+          <option value="A">5</option>
+          <option value="B">4</option>
+          <option value="C">3</option>
+          <option value="D">2</option>
+          <option value="E">1</option>
         </select>
 
         <input

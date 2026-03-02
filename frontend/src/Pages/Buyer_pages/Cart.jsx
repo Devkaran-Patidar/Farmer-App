@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Cart.css"
+import emptycart from "../../assets/emptyCart.png"
 const API_BASE = "http://127.0.0.1:8000";
 
 const CartPage = () => {
@@ -62,12 +64,16 @@ const CartPage = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>🛒 My Cart</h2>
+    <div className="mycart">
+      {/* <h2> My Cart</h2> */}
       <div className="cart-cards">
         
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="emptycart">
+          <img src={emptycart} alt="empty Cart" width={200} />
+            <h5>Your cart is empty.</h5>
+            <button className="emptycartbutt"><Link to="/buyerhome">Shop Now!</Link></button>
+          </div>
       ) : (
         <>
           {cartItems.map((item) => (

@@ -13,10 +13,11 @@ class productModel(models.Model):
     unit_type = models.CharField(max_length=20)
 
     QUALITY_CHOICES = [
-        ('A', 'Grade A'),
-        ('B', 'Grade B'),
-        ('Organic', 'Organic'),
-        ('Premium', 'Premium'),
+        ('A', '5'),
+        ('B', '4'),
+        ('C', '3'),
+        ('D', '2'),
+        ('E', '1'),
     ]
     quality_grade = models.CharField(
         max_length=20,

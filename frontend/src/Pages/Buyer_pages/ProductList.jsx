@@ -93,37 +93,37 @@ const ProductPage = () => {
 
 
   return (
-    <div style={{ padding: "20px" , display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+    <div className="allproduct-page" >
       
-      <div className="searchbar">
+      <div className="product-navbar">
+
+        <div className="main-product-heading" >
+        <h2>🛒 Cart Items: {cartCount}</h2>
+      </div>
+        
+        <div className="searchbar">
         <input type="text" name="searchbar" placeholder="Search here.."  value={searchTerm}onChange={(e) => {
           setSearchTerm(e.target.value);
           fetchProducts(e.target.value);  }} />
           <i class="fa-solid fa-magnifying-glass"></i>
 
       </div>
-
-      <div className="main-product-heading" >
-        <h2>🛒 Products </h2>
-        <h4>Cart Items: {cartCount}</h4>
+         
       </div>
-      {/* <div className="cart">
-        <img src={cart} alt="" width={50} className="cartlogo" />
-        <p className="count">{cartCount}</p>
-      </div> */}
-    
 
       <div className="allproduct">
         {products.map((product) => (
-          <div className="product-card">
+          <div className="product-card"
+            onClick={() => navigate(`/buyerhome/product/${product.id}`)}
+              style={{ cursor: "pointer" }}>
               <div className="image-wrapper">
                   <img src={API_BASE+product.product_img} alt={product.name}/>
-                  <span className="badge">Quality {product.quality_grade} </span>
+                  <span className="badge">{product.quality_grade} ⭐</span>
                 </div>
 
                 <div className="card-body">
                     <h2>{product.name}</h2>
-                    <p className="description"> <title className="product-title"> {product.description}</title> </p>
+                    {/* <p className="description"> <title className="product-title"> {product.description}</title> </p> */}
 
                   <div className="price-stock">
                       <span className="price">₹{product.price_per_unit} <small>/{product.unit_type}</small></span>
@@ -133,10 +133,10 @@ const ProductPage = () => {
                   <div className="location">
                    📍  {product.location} | 🚚 {product.delivery_option}
                   </div>
-                    <p className="harvest">Harvest Date: {product.harvest_date}</p>
+                    {/* <p className="harvest">Harvest Date: {product.harvest_date}</p> */}
                   <div className="buttons">
-                   <button className="cart-btn"  onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
-                    <button className="buy-btn"  onClick={() => handleBuyNow(product)}>Buy Now</button>
+                   <button className="cart-btn"  onClick={(e) => {handleAddToCart(product.id);   e.stopPropagation();   }}>Add to Cart</button>
+                    <button className="buy-btn"  onClick={(e) => {handleBuyNow(product); e.stopPropagation();}}>Buy Now</button>
                  </div>
                 </div>
             </div>

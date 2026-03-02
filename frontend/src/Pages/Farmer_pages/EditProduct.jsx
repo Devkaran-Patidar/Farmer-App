@@ -171,11 +171,12 @@ export default function EditProduct() {
           onChange={handleChange}
           required
         >
-          <option value="">Select Grade</option>
-          <option value="A">Grade A</option>
-          <option value="B">Grade B</option>
-          <option value="Organic">Organic</option>
-          <option value="Premium">Premium</option>
+          <option value="">Select Quality</option>
+          <option value="A">5</option>
+          <option value="B">4</option>
+          <option value="c">3</option>
+          <option value="d">2</option>
+          <option value="e">1</option>
         </select>
 
       </div>

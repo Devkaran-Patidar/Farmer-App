@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./OrderHistory.css"
 export default function OrderHistory() {
   const API_BASE = "http://127.0.0.1:8000";
   const token = localStorage.getItem("access_token");
@@ -41,24 +41,22 @@ export default function OrderHistory() {
   if (orders.length === 0) return <h3>No orders found</h3>;
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="orderhistory-page">
       <h2>📦 My Orders</h2>
 
+        <div className="all-order-his">
+
+          
       {orders.map((order) => (
         <div
           key={order.order_id}
-          style={{
-            border: "1px solid #ccc",
-            padding: 15,
-            marginBottom: 15,
-            borderRadius: 8,
-          }}
-        >
+          className="single-order"   >
           <h4>Order ID: {order.order_id}</h4>
           <p>Date: {new Date(order.created_at).toLocaleString()}</p>
 
           <hr />
 
+          <h5>Product Name:-</h5>
           {order.items.map((item, index) => (
             <div key={index}>
               {item.product} — {item.quantity} × ₹{item.price}
@@ -70,7 +68,7 @@ export default function OrderHistory() {
 
           <br />
           <button
-            style={{ marginTop: 10 }}
+           className="view-reciept-butt"
             onClick={() =>
               navigate(`/buyerhome/receipt/${order.order_id}`)
             }
@@ -79,6 +77,8 @@ export default function OrderHistory() {
           </button>
         </div>
       ))}
+
+        </div>
     </div>
   );
 }
