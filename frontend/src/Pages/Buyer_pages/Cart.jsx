@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "./Cart.css"
-import emptycart from "../../assets/emptyCart.png"
+import "./Cart.css";
+import emptycart from "../../assets/emptyCart.png";
 const API_BASE = "http://127.0.0.1:8000";
 
 const CartPage = () => {
@@ -51,7 +51,7 @@ const CartPage = () => {
       },
       body: JSON.stringify({ quantity }),
     });
-    fetchCart(); 
+    fetchCart();
   };
 
   const goToCheckout = () => {
@@ -67,50 +67,61 @@ const CartPage = () => {
     <div className="mycart">
       {/* <h2> My Cart</h2> */}
       <div className="cart-cards">
-        
-      {cartItems.length === 0 ? (
-        <div className="emptycart">
-          <img src={emptycart} alt="empty Cart" width={200} />
+        {cartItems.length === 0 ? (
+          <div className="emptycart">
+            <img src={emptycart} alt="empty Cart" width={200} />
             <h5>Your cart is empty.</h5>
-            <button className="emptycartbutt"><Link to="/buyerhome">Shop Now!</Link></button>
+            <button className="emptycartbutt">
+              <Link to="/buyerhome">Shop Now!</Link>
+            </button>
           </div>
-      ) : (
-        <>
-          {cartItems.map((item) => (
-            <div key={item.id} style={{ border: "1px solid #ccc", padding: 10, marginBottom: 10}}>
-              <h3>{item.product.name}</h3>
-              <p>₹ {item.product.price_per_unit} {item.product.unit_type} </p>
-              
-              <label htmlFor="quantity">Quantity</label>
-              <input
-              id="quantity"
-                type="number"
-                min="1"
-               value={item.quantity}
-                onChange={(e) =>
-                  handleUpdateQuantity(item.id, Number(e.target.value))
-                }
-              />
+        ) : (
+          <div className="cart-allproducts">
+            <div className="cart-allproductscard">
+              {cartItems.map((item) => (
+                <div className="cart-card" key={item.id}>
+                  <h3>{item.product.name}</h3>
+                  <p>
+                    <span className="cart-tag">Price: </span>₹{" "}
+                    {item.product.price_per_unit} {item.product.unit_type}{" "}
+                  </p>
+                  <label htmlFor=""><span className="cart-tag">Quantity:</span> {item.quantity }  {item.product.unit_type} </label>
+                  <div
+                    className="qty-wrapper"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      className="qty-btn"  onClick={() =>   item.quantity > 1 &&  handleUpdateQuantity(item.id, item.quantity - 1)  }  >
+                      −
+                    </button>
 
-              <button
-                onClick={() => handleRemove(item.id)}
-                style={{ marginLeft: 10, background: "red", color: "white" }}
-              >
-                Remove
-              </button>
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      min="1" className="qty-input"  onChange={(e) =>  handleUpdateQuantity(item.id, Number(e.target.value))
+                      }
+                    />
+
+                    <button
+                      className="qty-btn" onClick={() =>  handleUpdateQuantity(item.id, item.quantity + 1)  }  >
+                      +
+                    </button>
+                  </div>
+
+                  <button className="cart-remove-btn" onClick={() => handleRemove(item.id)}>Remove</button>
+                </div>
+              ))}
             </div>
-          ))}
 
-          <h3>Total: ₹ {cartTotal}</h3>
+           <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+             <h3>Total: ₹ {cartTotal}</h3>
 
-          <button
-            onClick={goToCheckout}
-            style={{ padding: "10px 15px", background: "green", color: "white" }}
-          >
-            Proceed to Checkout
-          </button>
-        </>
-      )}
+            <button onClick={goToCheckout} className="proceedbtn">
+              Proceed to Checkout
+            </button>
+           </div>
+          </div>
+        )}
       </div>
     </div>
   );

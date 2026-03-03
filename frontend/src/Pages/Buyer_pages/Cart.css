@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding: 4rem;
 }
 
 .emptycart{
@@ -21,4 +23,122 @@
     background-color: rgb(19, 202, 19);
     padding: 10px 40px;
     border-radius: 20px;
+}
+
+.cart-allproducts{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    /* border: 2px solid red; */
+
+
+}
+
+.cart-allproductscard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+
+}
+
+.cart-card{
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    border: 1px solid gray;
+    border-radius: 10px;
+    gap: 1rem;
+    padding: 2rem;
+
+    background-color: rgb(222, 215, 208);
+    
+}
+
+.cart-card h3{
+    /* border: 1px solid red; */
+    margin: 0;
+}
+
+.cart-card p{
+    /* border: 1px solid red; */
+    margin: 0;
+}
+
+.cart-tag{
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.cart-remove-btn{
+    padding: 7px 20px ;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    border: none;
+
+}
+
+.proceedbtn{
+    border: 1px solid transparent;
+    background-color: rgb(23, 194, 23);
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    border-radius: 12px;
+}
+
+.proceedbtn:hover{
+    color: blue;
+    border: 1px solid black;
+}
+
+/* ============== */
+/* Remove default arrows */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input {
+  -moz-appearance: textfield;
+}
+
+/* Wrapper */
+.qty-wrapper {
+  display: inline-flex;
+  align-items: center;
+  /* border: 1px solid #dc2323; */
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Input */
+.qty-input {
+  width: 50px;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+/* Buttons */
+.qty-btn {
+  padding: 4px 10px;
+  border: none;
+  background: #24d813;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.qty-btn:hover{
+    background-color: rgb(18, 73, 212);
 }

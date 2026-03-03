@@ -50,6 +50,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 #         'rest_framework.permissions.AllowAny',
 #     ),
 # }
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import "./ShopNow.css"
 const API_BASE = "http://127.0.0.1:8000";
 
 const ShopNow = () => {
@@ -52,26 +52,27 @@ const ShopNow = () => {
   }
 };
   return (
-    <div style={{ padding: 20 }}>
+    <div className="shopNow-card">
       <h2>🛍 Checkout</h2>
 
-      {items.map((item) => (
-        <div key={item.id} style={{ marginBottom: 10 }}>
-          <h4>{item.product.name}</h4>
+      <div className="shopnow-productcard">
+        {items.map((item) => (
+        <div key={item.id} >
+          <h4><span>Product Name: </span>{item.product.name}</h4>
           <p>
-            {item.quantity} × ₹{item.product.price_per_unit}
+           <span className="cart-tag">Quantity: </span> {item.quantity} × ₹{item.product.price_per_unit}
           </p>
         </div>
       ))}
 
       <h3>Total: ₹ {total}</h3>
 
-      <button
+      <button className="shopnow-btn"
         onClick={handleConfirmPurchase}
-        style={{ background: "orange", color: "white", padding: 10 }}
       >
         Confirm Purchase
       </button>
+      </div>
     </div>
   );
 };

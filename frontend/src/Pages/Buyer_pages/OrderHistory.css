@@ -37,3 +37,12 @@
     padding: 10px 20px;
     border-radius: 10px;
 }
+
+.single-order p{
+    margin: 0;
+}
+
+.single-order h5{
+    margin: 0;
+    margin-bottom: 10px;
+}

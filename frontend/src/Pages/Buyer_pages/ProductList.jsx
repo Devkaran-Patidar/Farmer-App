@@ -65,8 +65,10 @@ const ProductPage = () => {
   });
 
   if (res.ok) {
-    alert("Added to cart!");
-    navigate("/buyerhome/cart");  
+    // alert("Added to cart!");
+    // setCartCount +=1; 
+    fetchCart();
+    navigate("/buyerhome");  
   }
 };
 

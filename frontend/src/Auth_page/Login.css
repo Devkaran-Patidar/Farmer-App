@@ -12,12 +12,19 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: 2rem;
+    gap: 10px;
     background-color: rgba(231, 226, 226, 0.656);
     color:black;
    border-radius: 12px;
     padding: 4rem;
     box-shadow:2px 2px 6px rgb(33, 31, 31);
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
 }
 /* .login_page:hover{
     transition: 1.02;
@@ -75,4 +82,14 @@
 
 #login button:hover{
     background-color: rgb(28, 78, 188);
+}
+
+.forgot{
+    color: blue;
+}
+
+.forgot:hover{
+    /* color: rgb(54, 207, 90); */
+    text-decoration: underline;
+    /* text-decoration-color: rgb(54, 207, 90); */
 }

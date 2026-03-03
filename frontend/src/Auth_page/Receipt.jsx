@@ -93,8 +93,8 @@ export default function Receipt() {
           <title>Receipt</title>
           <style>
             body { font-family: Arial; padding: 20px; }
-            h2 { text-align: center; }
-            .item { margin-bottom: 10px; }
+            .recipt-header { text-align: center; }
+            .item 
             hr { margin: 10px 0; }
           </style>
         </head>
@@ -113,13 +113,19 @@ export default function Receipt() {
   return (
     <div style={{ padding: 20 }} className="recipt-section">
       <div ref={receiptRef} className="recipt">
-        <h2>🧾 Receipt</h2>
+       <div className="recipt-header">
+         <h2>Shri Vaishnav Vidyapeeth Vishwavidyalaya</h2>
+        <p>Ujjain Road, Indore-453111</p>
+          <p>Session : 2025-2026</p>
+        <p>Payment Receipt</p>
+       </div>
+        <hr />
 
         <div className="recipt-content">
           
          {!loadingProfile && profile && (
           <>
-            <hr />
+           
             <p><strong>Name:</strong> {profile.username}</p>
             <p><strong>Email:</strong> {profile.email}</p>
             <p><strong>Phone:</strong> {profile.phone_number}</p>
@@ -133,24 +139,25 @@ export default function Receipt() {
           <strong>Date:</strong>{" "}
           {new Date(order.created_at).toLocaleString()}
         </p>
-
         <hr />
 
         {order.items.map((item, index) => (
           <div className="item" key={index}>
+            <p style={{fontWeight:"bold"}}>Product Details :</p>
+            
             <p>
               {item.product} — {item.quantity} × ₹{item.price} = ₹
               {item.quantity * item.price}
             </p>
           </div>
         ))}
-
-        <hr />
+<hr />
         <h3>Total: <span className="tottal"> ₹{order.total_price}</span></h3>
 
         {/* PROFILE SECTION */}
        
       </div>
+
        <button onClick={handlePrint} style={{ marginTop: 20 }}>
         Print Receipt
       </button>

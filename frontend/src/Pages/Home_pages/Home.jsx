@@ -19,9 +19,9 @@ export default function Home() {
         </h1> 
         </div>
         
-        <div className="buttons">
-              <button className="btn"><a href="/login">Login Here !</a></button>      
-             <button className="btn"> <a href="/register">Register Now !</a></button>
+        <div className="buttons-h">
+              <button className="btn-h"><a href="/login">Login Here !</a></button>      
+             <button className="btn-h"> <a href="/register">Register Now !</a></button>
         </div> 
        
       </div>

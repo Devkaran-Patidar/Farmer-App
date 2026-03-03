@@ -23,7 +23,7 @@ export default function Register({ islogin, setIslogin }) {
       });
 
       const result = await res.json();
-      console.log(result)
+      // console.log(result)
 
       if (!res.ok) {
   let errorMessage = "";

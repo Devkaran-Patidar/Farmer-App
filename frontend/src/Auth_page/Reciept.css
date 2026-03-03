@@ -20,8 +20,12 @@
 
 }
 
-.recipt h2 {
-    color: orangered;
+.recipt-content{
+    /* border: 2px solid red ; */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 2rem;
 }
 
 .recipt button{
@@ -31,6 +35,13 @@
     outline: none;
     border-radius: 10px;
     font-size: 1.2rem;
+}
+
+.recipt-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .tottal{
@@ -56,4 +67,15 @@
         width: 100%;
     }
     
+}
+
+.recipt p{
+    margin: 0px;
+}
+
+.recipt h2{
+    margin: 0;
+}
+hr{
+    width: 100%;
 }

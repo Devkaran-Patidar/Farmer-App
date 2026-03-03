@@ -11,6 +11,7 @@ import BuyerLayout from "./Layouts/BuyerLayout.jsx";
 
 // pages login / register
 import Login from "./Auth_page/Login.jsx"
+import ForgotPass from "./Auth_page/ForgotPass.jsx";
 import Register from "./Auth_page/Register.jsx"
 import Profile from "./Auth_page/Profile.jsx";
 
@@ -23,7 +24,7 @@ import Contact from "./Pages/Home_pages/Contact.jsx";
 import ContactForm from "./Pages/Home_pages/ContactForm.jsx";
 
 // farmer
-import FarmerHome from "./Pages/Farmer_pages/FarmerHome.jsx"
+// import FarmerHome from "./Pages/Farmer_pages/FarmerHome.jsx"
 import AddProduct from "./Pages/Farmer_pages/AddProduct.jsx"
 import MyProducts from "./Pages/Farmer_pages/MyProduct.jsx";
 import EditProduct from "./Pages/Farmer_pages/EditProduct.jsx";
@@ -37,6 +38,7 @@ import ShopNow from "./Pages/Buyer_pages/ShopNow.jsx";
 import Reciept from "./Auth_page/Receipt.jsx";
 import OrderHistory from "./Pages/Buyer_pages/OrderHistory.jsx"
 import ProductDetails from "./Pages/Buyer_pages/ProductDetails.jsx";
+import ResetPassword from "./Auth_page/ResetPass.jsx";
 
 export default function App() {
   // const [islogin, setIslogin] =useState(false);
@@ -66,6 +68,8 @@ export default function App() {
 
 
             <Route  path="login"  element={<Login islogin={islogin} setIslogin={setIslogin} />} />
+            <Route  path="forgotpass"  element={<ForgotPass />} />
+            <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
             <Route path="register"  element={<Register islogin={islogin} setIslogin={setIslogin} />} />
           </Route>
 

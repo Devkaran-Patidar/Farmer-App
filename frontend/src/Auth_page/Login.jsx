@@ -58,7 +58,8 @@ export default function Login({ islogin, setIslogin }) {
   return (
     <section className="login-section">
       <div className="login_page">
-        <h1 className="text">Login</h1>
+         <div className="login-form">
+           <h1 className="text">Login</h1>
         <form id="login" onSubmit={handleLogin}>
           <input
             type="email"
@@ -75,13 +76,16 @@ export default function Login({ islogin, setIslogin }) {
             required
           />
           <button type="submit">Submit</button>
+           </form>
+         </div>
+          <span className="forgot"><Link to="/forgotpass">Forgot Password</Link></span>
           <p>
-            Don't have an Account?{" "}
+            Don't have an Account?
             <Link to="/register" className="text1">
               Sign up
             </Link>
           </p>
-        </form>
+       
       </div>
     </section>
   );
