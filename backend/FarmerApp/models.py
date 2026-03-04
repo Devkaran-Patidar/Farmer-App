@@ -5,7 +5,7 @@ class productModel(models.Model):
 
     farmer_id= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    product_img = models.ImageField(upload_to="produt_photos")
+    # product_img = models.ImageField(upload_to="produt_photos")
     name = models.CharField(max_length =100)
     category = models.CharField (max_length = 255)
     price_per_unit = models.IntegerField()
@@ -24,14 +24,16 @@ class productModel(models.Model):
         choices=QUALITY_CHOICES
     )
     harvest_date = models.DateField()
-    description = models.CharField(max_length=150)
+    description = models.CharField(max_length=500)
     location = models.CharField(max_length=100)
     delivery_option = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
 
-
+class ProductImage(models.Model):
+    product = models.ForeignKey(productModel, on_delete=models.CASCADE, related_name="images")
+    product_img = models.ImageField(upload_to="products/")
 
 # class Order(models.Model):
 #     product = models.ForeignKey(Product, on_delete=models.CASCADE)

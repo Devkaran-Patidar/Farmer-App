@@ -19,6 +19,7 @@ export default function MyProducts() {
 
       if (Array.isArray(data)) {
         setProducts(data);
+        // console.log(data)
       } else {
         console.log("Error:", data);
         setProducts([]);
@@ -65,13 +66,18 @@ export default function MyProducts() {
         ) : (
           products.map((item) => (
         
-          <div className="product-card"
+          <div className="product-card"     key={item.id}
           onClick={() => navigate(`/farmerhome/product/${item.id}`)}
               style={{ cursor: "pointer" }}>
               <div className="image-wrapper">
-               <img src={`http://127.0.0.1:8000${item.product_img}`}
-                     alt={item.name} />
-               
+               <img 
+  src={
+    item.images?.length > 0
+      ? item.images[0].image_url
+      : "https://via.placeholder.com/300"
+  }
+  alt={item.name}
+/>
                   <span className="badge">{item.quality_grade} ⭐</span>
                 </div>
 
@@ -89,8 +95,8 @@ export default function MyProducts() {
                    📍  {item.location} | 🚚 {item.delivery_option}
                   </div>
                   <div className="buttons">
-                   <button className="cart-btn" onClick={() =>  navigate(`/farmerhome/editproduct/${item.id}`)  }>Edit</button>
-                    <button className="buy-btn"  onClick={() => handleDelete(item.id)}>Delete</button>
+                   <button className="cart-btn" onClick={(e) =>{ e.stopPropagation();  navigate(`/farmerhome/editproduct/${item.id}`)  }}>Edit</button>
+                    <button className="buy-btn"  onClick={(e) =>{ e.stopPropagation(); handleDelete(item.id)}}>Delete</button>
                  </div>
                 </div>
             </div>

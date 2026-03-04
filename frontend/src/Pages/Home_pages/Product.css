@@ -28,10 +28,10 @@
 
 .pro-cards{
   /* border: 1px solid rgb(19, 19, 19); */
-  background-color: aliceblue;
+  background-color: rgb(190, 212, 231);
   border-radius: 20px;
   width: 15rem;
-  height: 15rem;
+  height: 20rem;
   padding: 5px;
   display: flex;
   flex-direction: column;
@@ -41,8 +41,27 @@
   
 }
 
+.pro-img{
+  height: 12rem;
+  border: 2px solid rgb(14, 13, 13);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.3rem;
+
+  
+}
+
+
 .pro-cards:hover{
   transform: scale(1.1);
   box-shadow: 0px 0px 10px rgb(52, 86, 115);
 
+}
+
+.pro-cards h4 ,p{
+  margin: 0;
+  padding: 6px ;
 }

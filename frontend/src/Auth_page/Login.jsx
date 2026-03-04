@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { API_URL } from "../config";
 
 export default function Login({ islogin, setIslogin }) {
   const navigate = useNavigate();
-
   useEffect(() => {
     if (islogin) {
       const role = localStorage.getItem("role");
@@ -22,7 +22,7 @@ export default function Login({ islogin, setIslogin }) {
     };
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/user/login/", {
+      const res = await fetch(`${API_URL}user/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

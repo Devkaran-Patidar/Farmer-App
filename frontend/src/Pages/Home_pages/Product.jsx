@@ -1,5 +1,6 @@
 import "./Product.css";
-
+import img1 from "../../assets/product_image/ghee.png"
+import img2 from "../../assets/product_image/honey.jpeg"
 export default function Product() {
   return (
     <section className="product-section">
@@ -10,12 +11,19 @@ export default function Product() {
       <div className="product-cards">
 
           <div className="pro-cards">
-              <h1>🍄</h1>
+              {/* <h1>🍄</h1>
               <h4>Vegetables</h4>
+              <p>Fresh & Organic</p> */}
+             <div className="pro-img">
+                 <img src={img1} alt="img-1" />
+             </div>
+              <h4>Ghee</h4>
               <p>Fresh & Organic</p>
           </div>
           <div className="pro-cards">
-              <h1>🍎</h1>
+               <div className="pro-img">
+                 <img src={img2} alt="img-1" />
+             </div>
               <h4>Fruits</h4>
               <p>Seasonal & Imported</p>
           </div>

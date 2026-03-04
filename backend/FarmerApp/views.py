@@ -4,19 +4,39 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import productModel
 from .serializer import productSerializer
-
+from .models import ProductImage
 @api_view(['POST'])
-@permission_classes([IsAuthenticated]) 
+@permission_classes([IsAuthenticated])
 def add_product(request):
     serializer = productSerializer(data=request.data)
 
     if serializer.is_valid():
-        serializer.save(farmer_id=request.user)  # ✅ set automatically
-        return Response(serializer.data, status=201)
+        product = serializer.save(farmer_id=request.user)
+
+        images = request.FILES.getlist("product_img")
+
+        # Optional limit
+        if len(images) > 5:
+            return Response(
+                {"message": "Maximum 5 images allowed"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        for image in images:
+            ProductImage.objects.create(
+                product=product,
+                product_img=image
+            )
+
+        # 🔥 Return product with images
+        final_serializer = productSerializer(
+            product,
+            context={"request": request}
+        )
+
+        return Response(final_serializer.data, status=201)
 
     return Response(serializer.errors, status=400)
-
-
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -24,7 +44,7 @@ def Myproduct(request):
 
     products = productModel.objects.filter(farmer_id=request.user)
 
-    serializer = productSerializer(products, many=True)
+    serializer = productSerializer(products, many=True,context={"request": request})
     return Response(serializer.data)
 
 
@@ -51,14 +71,34 @@ def Editproduct(request, id):
     except productModel.DoesNotExist:
         return Response({"error": "Product not found"}, status=404)
 
-    serializer = productSerializer(product, data=request.data, partial=True)
+    serializer = productSerializer(
+        product,
+        data=request.data,
+        partial=True,
+        context={"request": request}
+    )
 
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+
+        # ✅ Handle multiple images
+        images = request.FILES.getlist("images")
+
+        if images:
+            # Optional: delete old images
+            ProductImage.objects.filter(product=product).delete()
+
+            for img in images:
+                ProductImage.objects.create(
+                    product=product,
+                    product_img=img
+                )
+
+        return Response(
+            productSerializer(product, context={"request": request}).data
+        )
 
     return Response(serializer.errors, status=400)
-
 
 # -------------------------buyer---------------
 
@@ -76,7 +116,7 @@ def AllProducts(request):
             Q(category__icontains=search)
         )
     qs = qs.order_by('?') 
-    serializer = productSerializer(qs, many=True)
+    serializer = productSerializer(qs, many=True,context={'request': request})
     return Response(serializer.data)
 
 
@@ -387,9 +427,6 @@ def FarmerEarning(request):
 
 # @api_view(['GET'])
 # def ProductDetails(req ,product_id):
-
-
-
 from rest_framework import status
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -402,8 +439,9 @@ def product_details(request, product_id):
             status=status.HTTP_404_NOT_FOUND
         )
 
-    serializer = productSerializer(product)
+    serializer = productSerializer(product, context={"request": request})
+
     return Response({
         "success": True,
         "product": serializer.data,
-    })   
+    })

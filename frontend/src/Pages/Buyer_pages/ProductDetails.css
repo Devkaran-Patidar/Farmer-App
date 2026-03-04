@@ -1,149 +1,240 @@
-
-.product-details-container{
-    /* border: 2px solid red; */
-    padding: 0rem  4rem;
+/* ==================== Container ==================== */
+.product-details-container {
+    padding: 2rem 4rem;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
     gap: 2rem;
     background-color: rgb(237, 231, 224);
-
+    font-family: 'Poppins', sans-serif;
 }
 
-.product-1{
+/* ==================== Top Section: Slider + Details ==================== */
+.product-1 {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    flex-wrap: wrap; /* allow wrapping on small screens */
+}
+
+/* ==================== Slider Wrapper ==================== */
+.slider-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+}
+
+/* ==================== Slider ==================== */
+.slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+}
+
+
+.slide {
+    min-width: 100%;
+    scroll-snap-align: center;
+}
+
+.detail-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* ==================== Scrollbar Styling ==================== */
+.slider::-webkit-scrollbar {
+    height: 4px; /* thin horizontal scrollbar */
+}
+
+.slider::-webkit-scrollbar-track {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.slider::-webkit-scrollbar-thumb {
+    background: #28a745;
+    border-radius: 10px;
+}
+
+.slider::-webkit-scrollbar-thumb:hover {
+    background: #218838;
+}
+
+/* ==================== Arrows ==================== */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-}
-.slider{
-    width: 30rem;
-
-    padding: 0.2rem;
-
-    border: 1px solid gray;
-    box-shadow: 0px 0px 10px black;
+    transition: 0.3s;
 }
 
-
-.overview{
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-.buttonss {
-  width: 20rem;
-  /* padding: 2rem; */
-    margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+.arrow.left {
+    left: 5px;
 }
 
-.disclaimer{
-    width: 50rem;
+.arrow.right {
+    right: 5px;
+}
+
+.arrow:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* ==================== Product Details ==================== */
+.details {
+    flex: 1;
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.details h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+    margin: 0;
+}
+
+.stock, .overview, .harvest {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Buttons */
+.buttonss {
+    display: flex;
+    gap: 1rem;
     flex-wrap: wrap;
+    margin-top: 1rem;
+    width: 15rem;
 }
 
-@media (max-width:950px) {
-        .slider{
-            width: 25rem;
+.cart-btn, .buy-btn {
+    flex: 1;
+    width: 7rem;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-        }
+.cart-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cart-btn:hover {
+    background-color: #218838;
+}
+
+.buy-btn {
+    background-color: #ff9800;
+    color: white;
+}
+
+.buy-btn:hover {
+    background-color: #e68900;
+}
+
+/* ==================== Description & Disclaimer ==================== */
+.disclaimer {
+    max-width: 600px;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 950px) {
+    .product-details-container {
+        padding: 1.5rem 2rem;
+    }
+
+    .detail-image {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-details-container{
+        padding-left: 3rem;
+    }
+    .product-1 {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: start;
+    }
+
+    .detail-image {
+        height: 250px;
+    }
+
+    .buttonss {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
         .product-details-container{
-            padding: 0px  20px;
-        }
+        padding-left: 10px;
+    }
+    .product-details-container {
+        padding: 1rem;
+    }
 
-        .buttonss{
-            width: 15rem;
-        }
+    .detail-image {
+        height: 200px;
+    }
 
-        .disclaimer{
-            width: 40rem;
-        }
+    .buttonss {
+        /* flex-direction: column; */
+        width: 100%;
+    }
+
+    .disclaimer {
+        max-width: 100%;
+    }
+
+    .arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 1.5rem;
+    }
 }
 
-@media (max-width:750px) {
-        .slider{
-            width: 20rem;
-
-        }
-        .product-details-container{
-            padding: 0px  10px;
-        }
-
-        .buttonss{
-            width: 15rem;
-        }
-
-        
-        .disclaimer{
-            width: 35rem;
-        }
+@media (max-width: 350px) {
+    .detail-image {
+        height: 180px;
+    }
 }
 
-@media (max-width:650px) {
-        .product-1{
-            flex-direction: column;
-            justify-content: start;
-            align-items: start;
 
-        }  
-        
-        .product-details-container{
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            align-items: start;
-            /* gap: 2rem; */
-            padding-left: 2rem;
+.details p ,h1{
+    margin: 0;
 }
-    
-        .disclaimer{
-            width: 30rem;
-        }
-
-}
-
-@media (max-width:500px) {
-       .slider{
-    width: 18rem;
-
-    padding: 0.5rem;
-
-    border: 1px solid gray;
-}   
-        .product-details-container{
-            gap: 20px;
-            padding-left: 20px;
-            padding-top: 1rem;
-        }
-
-        .product-1{
-            gap: 0px;
-            padding-left: 20px;
-        }
-
-        .buttonss{
-            width: 18rem;
-        }
-
-        .back{
-            display: none;
-        }
-    
-        .disclaimer{
-            width: 20rem;
-        }
-
-
-}
-
-@media (max-width:350px) {
-        
-        .disclaimer{
-            width: 15rem;
-        }
-}
-

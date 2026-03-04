@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./EditProdt.css"
+import "./EditProdt.css";
+
 export default function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
 
   const [product, setProduct] = useState({
-    product_img: null,
     name: "",
     category: "",
     price_per_unit: "",
@@ -20,7 +20,9 @@ export default function EditProduct() {
     delivery_option: "",
   });
 
-  const [preview, setPreview] = useState(null);
+  const [existingImages, setExistingImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
 
   // ✅ Load product data
   useEffect(() => {
@@ -32,31 +34,35 @@ export default function EditProduct() {
       .then((res) => res.json())
       .then((data) => {
         const found = data.find((p) => p.id === parseInt(id));
+
         if (found) {
           setProduct({
             ...found,
-            product_img: null, // keep file empty unless user selects new one
             harvest_date: found.harvest_date
               ? found.harvest_date.split("T")[0]
               : "",
           });
 
-          if (found.product_img) {
-            setPreview(found.product_img);
+          if (found.images) {
+            setExistingImages(found.images);
           }
         }
       });
   }, [id, token]);
 
-  // ✅ Handle input changes
+  // ✅ Handle text input
   const handleChange = (e) => {
-    if (e.target.name === "product_img") {
-      const file = e.target.files[0];
-      setProduct({ ...product, product_img: file });
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setProduct({ ...product, [e.target.name]: e.target.value });
-    }
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  // ✅ Handle multiple image select
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    setNewImages(files);
+
+    const previews = files.map((file) => URL.createObjectURL(file));
+    setPreviewImages(previews);
   };
 
   // ✅ Handle update
@@ -69,6 +75,11 @@ export default function EditProduct() {
       if (product[key] !== null && product[key] !== "") {
         formData.append(key, product[key]);
       }
+    });
+
+    // Append multiple images
+    newImages.forEach((img) => {
+      formData.append("images", img);
     });
 
     try {
@@ -99,135 +110,159 @@ export default function EditProduct() {
   };
 
   return (
-    <section className="edit-section" >
+    <section className="edit-section">
       <div className="edit-div">
-        
         <h2>Edit Product</h2>
-      <form onSubmit={handleUpdate} className="edit-form">
-    
 
-       <div className="formbox">
-         <label htmlFor="photo">Upload New Photo</label>
-        <input id="photo" type="file" name="product_img" onChange={handleChange} />
-       </div>
+        <form onSubmit={handleUpdate} className="edit-form">
 
-      <div className="formbox">
-         <label htmlFor="name">Name</label>
-        <input id="name" name="name"  value={product.name}  onChange={handleChange}  required
-        />
-      </div>
-
-      <div className="formbox">
-          <label htmlFor="category">Category</label>
-          <input
-          id="category"
-          name="category"
-          value={product.category}
-          onChange={handleChange}
-          required
-        />
-        </div>
-
-      <div className="formbox">
-          <label htmlFor="unit">Price per unit</label>
-          <input
-          id="unit"
-          type="number"
-          name="price_per_unit"
-          value={product.price_per_unit}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-        <div className="formbox">
-          <label htmlFor="quantity">Available Quantity</label>
-        <input
-        id="quantity"
-          type="number"
-          name="available_quantity"
-          value={product.available_quantity}
-          onChange={handleChange}
-          required
-        />
-        </div>
-      <div className="formbox">
-        <label htmlFor="unittype">Unit type</label>
-        <input
-        id="unittype"
-          name="unit_type"
-          value={product.unit_type}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div className="formbox">
-        <label htmlFor="grade">select Quality Grade</label>
-        <select
-        id="grade"
-          name="quality_grade"
-          value={product.quality_grade}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Quality</option>
-          <option value="A">5</option>
-          <option value="B">4</option>
-          <option value="c">3</option>
-          <option value="d">2</option>
-          <option value="e">1</option>
-        </select>
-
-      </div>
-
-        <div className="formbox">
-          <label htmlFor="date">Harvest Date</label>
-        <input
-          id="date"
-          type="date"
-          name="harvest_date"
-          value={product.harvest_date}
-          onChange={handleChange}
-          required
-        />
-        </div>
-        
-        <div className="formbox">
-        <label htmlFor="description">Description</label>
-        <input
-          id="description"
-          name="description"
-          value={product.description}
-          onChange={handleChange}
-          required
-        />
-        </div>
-
-        <div className="formbox">
-          <label htmlFor="location">Location</label>
-        <input
-        id="location"
-          name="location"
-          value={product.location}
-          onChange={handleChange}
-          required
-        />
-
-        </div>
-        
-          <div className="formbox"> 
-           <label htmlFor="delivery">Delivery</label> 
-          <input
-            id="delivery"
-            name="delivery_option"
-            value={product.delivery_option}
-            onChange={handleChange}
-            required
-          />
+          {/* Upload Multiple Images */}
+          <div className="formbox">
+            <label>Upload New Photos</label>
+            <input
+              type="file"
+              multiple
+              onChange={handleImageChange}
+            />
           </div>
-        <button type="submit">Update Product</button>
-      </form>
+
+          {/* Existing Images Preview */}
+          <div className="preview-container">
+            {existingImages.map((img) => (
+              <img
+                key={img.id}
+                src={img.image_url}
+                alt="existing"
+                className="preview-img"
+              />
+            ))}
+          </div>
+
+          {/* New Selected Images Preview */}
+          <div className="preview-container">
+            {previewImages.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt="preview"
+                className="preview-img"
+              />
+            ))}
+          </div>
+
+          {/* Rest of your inputs remain same */}
+          <div className="formbox">
+            <label>Name</label>
+            <input
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Category</label>
+            <input
+              name="category"
+              value={product.category}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Price per unit</label>
+            <input
+              type="number"
+              name="price_per_unit"
+              value={product.price_per_unit}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Available Quantity</label>
+            <input
+              type="number"
+              name="available_quantity"
+              value={product.available_quantity}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Unit Type</label>
+            <input
+              name="unit_type"
+              value={product.unit_type}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Quality Grade</label>
+            <select
+              name="quality_grade"
+              value={product.quality_grade}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Quality</option>
+              <option value="A">5</option>
+              <option value="B">4</option>
+              <option value="C">3</option>
+              <option value="D">2</option>
+              <option value="E">1</option>
+            </select>
+          </div>
+
+          <div className="formbox">
+            <label>Harvest Date</label>
+            <input
+              type="date"
+              name="harvest_date"
+              value={product.harvest_date}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Description</label>
+            <input
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Location</label>
+            <input
+              name="location"
+              value={product.location}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="formbox">
+            <label>Delivery Option</label>
+            <input
+              name="delivery_option"
+              value={product.delivery_option}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit">Update Product</button>
+        </form>
       </div>
     </section>
   );

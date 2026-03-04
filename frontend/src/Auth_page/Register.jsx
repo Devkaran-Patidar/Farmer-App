@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import "./Register.css";
+import { API_URL } from "../config";
 
 export default function Register({ islogin, setIslogin }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Register({ islogin, setIslogin }) {
     formData.append("password", e.target.password.value);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/user/register/", {
+      const res = await fetch(`${API_URL}user/register/` , {
         method: "POST",
         body: formData,
       });

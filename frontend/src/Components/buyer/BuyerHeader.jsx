@@ -33,22 +33,22 @@ export default function BuyerHeader({ islogin, setIslogin }) {
 
       <nav className={ menuOpen ? "active" : ""}>
         <Link to="/buyerhome" onClick={() => setMenuOpen(false)}>
-          <i class="fa-solid fa-house"></i>
+          <i className="fa-solid fa-house"></i>
           Home
         </Link>
 
         <Link to="/buyerhome/Cart" onClick={() => setMenuOpen(false)}>
-        <i class="fa-solid fa-cart-arrow-down"></i>
+        <i className="fa-solid fa-cart-arrow-down"></i>
           Cart
         </Link>
 
         <Link to="/buyerhome/orderhistory" onClick={() => setMenuOpen(false)}>
-          <i class="fa-solid fa-bag-shopping"></i>
+          <i className="fa-solid fa-bag-shopping"></i>
           Order
         </Link>
 
          <Link to="/buyerhome/profile" onClick={() => setMenuOpen(false)}>
-         <i class="fa-solid fa-user"></i>
+         <i className="fa-solid fa-user"></i>
           Profile
         </Link>
 

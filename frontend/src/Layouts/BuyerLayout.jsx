@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import BuyerHeader from "../components/buyer/BuyerHeader.jsx";
-import BuyerFooter from "../components/buyer/BuyerFooter.jsx";
+import BuyerHeader from "../Components/buyer/BuyerHeader.jsx";
+import BuyerFooter from "../Components/buyer/BuyerFooter.jsx";
 import { useNavigate } from "react-router-dom";
 
 import { Navigate } from "react-router-dom";

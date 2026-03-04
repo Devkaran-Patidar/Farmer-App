@@ -6,7 +6,7 @@ export default function AddProduct() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    product_img: null,
+    product_img: [],
     name: "",
     category: "",
     price_per_unit: "",
@@ -23,9 +23,16 @@ export default function AddProduct() {
 
   const handleChange = (e) => {
     if (e.target.name === "product_img") {
+       const files = Array.from(e.target.files);
+
+        // 🔴 Limit to 5 images
+        if (files.length > 5) {
+          alert("You can upload maximum 5 images only ❌");
+          return;
+        }
       setFormData({
         ...formData,
-        product_img: e.target.files[0],   // ✅ file object
+        product_img:Array.from(e.target.files) ,   
       });
     } else {
       setFormData({
@@ -39,9 +46,15 @@ export default function AddProduct() {
     e.preventDefault();
 
     const formDataToSend = new FormData();
-    Object.keys(formData).forEach((key) => {
-      formDataToSend.append(key, formData[key]);
+   Object.keys(formData).forEach((key) => {
+  if (key === "product_img") {
+    formData.product_img.forEach((file) => {
+      formDataToSend.append("product_img", file);
     });
+  } else {
+    formDataToSend.append(key, formData[key]);
+  }
+});
 
     // farmer_id is set in backend, do not send from frontend
     try {
@@ -76,9 +89,28 @@ export default function AddProduct() {
           type="file"
           name="product_img"
           accept="image/*"
+          multiple
           onChange={handleChange}
           required
         />
+
+        {/* ==== */}
+        {formData.product_img && formData.product_img.length > 0 && (
+  <div style={{ marginTop: "10px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
+    {formData.product_img.map((file, index) => (
+      <div key={index}>
+        <img
+          src={URL.createObjectURL(file)}
+          alt="preview"
+          width="100"
+          height="100"
+          style={{ objectFit: "cover", borderRadius: "8px" }}
+        />
+      </div>
+    ))}
+  </div>
+)}
+        {/* ==== */}
 
         <input
           type="text"

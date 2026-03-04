@@ -15,6 +15,7 @@ const ProductPage = () => {
       const res = await fetch(`${API_BASE}/api/farmer/allproducts/?search=${query}`);
       const data = await res.json();
       setProducts(data);
+      // console.log(data)
     } catch (err) {
       console.error("Error fetching products", err);
     }
@@ -115,14 +116,21 @@ const ProductPage = () => {
 
       <div className="allproduct">
         {products.map((product) => (
-          <div className="product-card"
+          <div key={product.id} className="product-card" 
             onClick={() => navigate(`/buyerhome/product/${product.id}`)}
               style={{ cursor: "pointer" }}>
-              <div className="image-wrapper">
-                  <img src={API_BASE+product.product_img} alt={product.name}/>
-                  <span className="badge">{product.quality_grade} ⭐</span>
-                </div>
-
+               <div className="image-wrapper">
+              {product.images && product.images.length > 0 ? (
+  <img
+    src={product.images[0].image_url}
+    alt={product.name}
+    style={{ width: "100%", height: "220px", objectFit: "cover" }}
+  />
+) : (
+  <p>No Image</p>
+)}
+              <span className="badge">{product.quality_grade} ⭐</span>
+            </div>
                 <div className="card-body">
                     <h2>{product.name}</h2>
                     {/* <p className="description"> <title className="product-title"> {product.description}</title> </p> */}

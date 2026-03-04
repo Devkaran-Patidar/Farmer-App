@@ -1,35 +1,16 @@
 // Mock backend API calls
-const API_URL = "http://localhost:8000/"; 
+// const API_URL = "http://localhost:8000/"; 
 
-export const fetchProducts = async () => {
-  const res = await fetch(`${API_URL}/products/`);
-  return res.json();
-};
+// src/api.js
+import axios from 'axios';
+import { API_KEY, API_URL } from './config';
 
-export const addToCart = async (product) => {
-  const res = await fetch(`${API_URL}/cart/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
-  });
-  return res.json();
-};
+// Create a global axios instance
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Authorization': `Bearer ${API_KEY}`, // automatically include API key
+  },
+});
 
-export const fetchCart = async () => {
-  const res = await fetch(`${API_URL}/cart/`);
-  return res.json();
-};
-
-export const placeOrder = async (order) => {
-  const res = await fetch(`${API_URL}/orders/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
-  });
-  return res.json();
-};
-
-export const fetchOrders = async () => {
-  const res = await fetch(`${API_URL}/orders/`);
-  return res.json();
-};
+export default api;

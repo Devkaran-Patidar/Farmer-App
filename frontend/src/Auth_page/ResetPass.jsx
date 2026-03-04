@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { API_URL } from "../config";
 
 export default function ResetPassword() {
   const { uid, token } = useParams();
@@ -9,7 +10,7 @@ export default function ResetPassword() {
     e.preventDefault();
 
     const res = await fetch(
-      `http://127.0.0.1:8000/api/user/reset-password/${uid}/${token}/`,
+      `${API_URL}/user/reset-password/${uid}/${token}/`,
       {
         method: "POST",
         headers: {

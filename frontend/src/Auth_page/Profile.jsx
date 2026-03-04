@@ -2,6 +2,8 @@ import "./Profile.css";
 import { useState, useEffect } from "react";
 // import logo from "../../assets/logoName.webp";
 import logo from "../assets/image.png";
+import { API_URL } from "../config";
+
 
 export default function Profile() {
   const userId = localStorage.getItem("userId");
@@ -20,7 +22,7 @@ export default function Profile() {
 
       try {
         const res = await fetch(
-          `http://localhost:8000/api/user/profile/${userId}/`,
+          `${API_URL}user/profile/${userId}/`,
           {
             method: "GET",
             headers: {

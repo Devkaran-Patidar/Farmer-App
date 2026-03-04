@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Reciept.css"
+import { API_URL } from "../config";
+
 export default function Receipt() {
-  const API_BASE = "http://127.0.0.1:8000";
   const navigate = useNavigate();
   const receiptRef = useRef();
 
@@ -23,7 +24,7 @@ export default function Receipt() {
       return;
     }
 
-    fetch(`${API_BASE}/api/farmer/orders/${orderId}/`, {
+    fetch(`${API_URL}farmer/orders/${orderId}/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
