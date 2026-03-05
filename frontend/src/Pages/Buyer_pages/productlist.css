@@ -12,7 +12,7 @@
 .product-navbar{
   position: fixed;
   top: 12vh;
-  z-index: 100000000000000000000000;
+  z-index: 10000;
 }
 .searchbar{
     /* border: 2px solid rgb(84, 86, 84); */

@@ -2,6 +2,10 @@ import "./FarmerHeader.css";
 import logo from "../../assets/logoName.webp";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import { AiFillProduct } from "react-icons/ai";
+import { FaShoppingBag } from "react-icons/fa";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { CgProfile } from "react-icons/cg";
 
 export default function FarmerHeader({ islogin, setIslogin }) {
   const navigate = useNavigate();
@@ -37,18 +41,22 @@ export default function FarmerHeader({ islogin, setIslogin }) {
         </Link> */}
 
         <Link to="/farmerhome" onClick={() => setMenuOpen(false)}>
+          <AiFillProduct />
           My Products
         </Link>
 
         <Link to="/farmerhome/farmerorders" onClick={() => setMenuOpen(false)}>
+          <FaShoppingBag />
           Orders
         </Link>
         
         <Link to="/farmerhome/farmerearning" onClick={() => setMenuOpen(false)}>
+        <GiTakeMyMoney />
           Earning
         </Link>
 
          <Link to="/farmerhome/profile" onClick={() => setMenuOpen(false)}>
+         <CgProfile />
           Profile
         </Link>
 
