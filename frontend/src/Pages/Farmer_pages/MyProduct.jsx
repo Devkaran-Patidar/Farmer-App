@@ -85,9 +85,9 @@ export default function MyProducts() {
                     <h2>{item.name}</h2>
                     {/* <p className="description">  {item.description} </p> */}
 
-                  <div className="price-stock">
-                      <span className="price">₹{item.price_per_unit} <small>/{item.unit_type}</small></span>
-                   <span className="stock">{item.available_quantity} {item.unit_type} Available  </span>
+                  <div className="price-stockk">
+                      <span className="pricee">₹{item.price_per_unit} <small>/{item.unit_type}</small></span>
+                   <span className="stockk">{item.available_quantity} {item.unit_type} Available  </span>
                   </div>
 
                     {/* <p className="harvest">Harvest Date: {item.harvest_date}</p> */}

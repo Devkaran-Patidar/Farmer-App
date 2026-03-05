@@ -127,6 +127,7 @@ export default function EditProduct() {
           </div>
 
           {/* Existing Images Preview */}
+            <h4 style={{margin:"0"}}>Current Images</h4>
           <div className="preview-container">
             {existingImages.map((img) => (
               <img
@@ -140,6 +141,7 @@ export default function EditProduct() {
 
           {/* New Selected Images Preview */}
           <div className="preview-container">
+            {/* <p>New Images</p> */}
             {previewImages.map((img, index) => (
               <img
                 key={index}

@@ -3,16 +3,18 @@ import { useNavigate } from "react-router-dom";
 const API_BASE = "http://127.0.0.1:8000"; 
 import "./productlist.css"
 
-const ProductPage = () => {
+const ProductPage = ({setCartCount,cartCount}) => {
   const [products, setProducts] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
+  // const [cartCount, setCartCount] = useState(0);
   const token = localStorage.getItem("access_token");
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("");
+  const [cartItems, setCartItems] = useState([]);
   // Fetch all products
-  const fetchProducts = async (query ="") => {
+  const fetchProducts = async (query ="",cat = "") => {
     try {
-      const res = await fetch(`${API_BASE}/api/farmer/allproducts/?search=${query}`);
+      const res = await fetch(`${API_BASE}/api/farmer/allproducts/?search=${query}&category=${cat}`);
       const data = await res.json();
       setProducts(data);
       // console.log(data)
@@ -40,7 +42,7 @@ const ProductPage = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts(searchTerm, category);
     if (token) {
       fetchCart();
     }
@@ -69,7 +71,9 @@ const ProductPage = () => {
     // alert("Added to cart!");
     // setCartCount +=1; 
     fetchCart();
-    navigate("/buyerhome");  
+    navigate("/buyerhome"); 
+    setCartItems((prev) => [...prev, productId]);
+  
   }
 };
 
@@ -98,17 +102,27 @@ const ProductPage = () => {
   return (
     <div className="allproduct-page" >
       
-      <div className="product-navbar">
-
-        <div className="main-product-heading" >
-        <h2>🛒 Cart Items: {cartCount}</h2>
-      </div>
-        
+      <div className="product-navbar">        
         <div className="searchbar">
-        <input type="text" name="searchbar" placeholder="Search here.."  value={searchTerm}onChange={(e) => {
-          setSearchTerm(e.target.value);
-          fetchProducts(e.target.value);  }} />
+          <select name="category" id="selectcat" value={category}
+          onChange={(e) => {
+            const selectedCategory = e.target.value;
+            setCategory(selectedCategory);
+            fetchProducts(searchTerm, selectedCategory);
+            }}>
+            <option value="">Select Category</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Flowers">Flowers</option>
+            <option value="Organic">Organic Product</option>
+          </select>
+        <div className="search">
+          <input type="text" name="searchbar" placeholder="Search here.."  value={searchTerm}onChange={(e) => {
+          const value = e.target.value;
+          setSearchTerm(value);
+          fetchProducts(value,category);  }} />
           <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
 
       </div>
          
@@ -124,7 +138,6 @@ const ProductPage = () => {
   <img
     src={product.images[0].image_url}
     alt={product.name}
-    style={{ width: "100%", height: "220px", objectFit: "cover" }}
   />
 ) : (
   <p>No Image</p>
@@ -135,18 +148,25 @@ const ProductPage = () => {
                     <h2>{product.name}</h2>
                     {/* <p className="description"> <title className="product-title"> {product.description}</title> </p> */}
 
-                  <div className="price-stock">
-                      <span className="price">₹{product.price_per_unit} <small>/{product.unit_type}</small></span>
-                   <span className="stock">{product.available_quantity} {product.unit_type} Available  </span>
+                  <div className="price-stockk">
+                      <span className="pricee">₹{product.price_per_unit} <small>/{product.unit_type}</small></span>
+                   <span className="stockk">{product.available_quantity} {product.unit_type} Available  </span>
                   </div>
 
                   <div className="location">
                    📍  {product.location} | 🚚 {product.delivery_option}
                   </div>
                     {/* <p className="harvest">Harvest Date: {product.harvest_date}</p> */}
-                  <div className="buttons">
-                   <button className="cart-btn"  onClick={(e) => {handleAddToCart(product.id);   e.stopPropagation();   }}>Add to Cart</button>
-                    <button className="buy-btn"  onClick={(e) => {handleBuyNow(product); e.stopPropagation();}}>Buy Now</button>
+                  <div className="buttonns">
+                   <button className="cartt-btn"  onClick={(e) => {  e.stopPropagation(); 
+                   if (cartItems.includes(product.id)) {
+                     navigate("/buyerhome/cart");
+                    } else {
+                   handleAddToCart(product.id);
+                      }
+                       }}>  
+                       {cartItems.includes(product.id) ? "Go to Cart" : "Add to Cart"}</button>
+                    <button className="buyy-btn"  onClick={(e) => {handleBuyNow(product); e.stopPropagation();}}>Buy Now</button>
                  </div>
                 </div>
             </div>

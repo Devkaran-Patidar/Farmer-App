@@ -3,7 +3,13 @@ import logo from "../../assets/logoName.webp";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import "./BuyerHeader.css"
-export default function BuyerHeader({ islogin, setIslogin }) {
+
+import { AiOutlineHome } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { BsCart3 } from "react-icons/bs";
+import { FiShoppingBag } from "react-icons/fi";
+
+export default function BuyerHeader({ islogin, setIslogin,setCartCount,cartCount }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -33,22 +39,27 @@ export default function BuyerHeader({ islogin, setIslogin }) {
 
       <nav className={ menuOpen ? "active" : ""}>
         <Link to="/buyerhome" onClick={() => setMenuOpen(false)}>
-          <i className="fa-solid fa-house"></i>
+          {/* <i className="fa-solid fa-house"></i> */}
+          <AiOutlineHome />
           Home
         </Link>
 
         <Link to="/buyerhome/Cart" onClick={() => setMenuOpen(false)}>
-        <i className="fa-solid fa-cart-arrow-down"></i>
+        {/* <i className="fa-solid fa-cart-arrow-down"></i> */}
+          <span className="Cartcountte">{cartCount}</span>
+          <BsCart3 />
           Cart
         </Link>
 
         <Link to="/buyerhome/orderhistory" onClick={() => setMenuOpen(false)}>
-          <i className="fa-solid fa-bag-shopping"></i>
+          {/* <i className="fa-solid fa-bag-shopping"></i> */}
+       <FiShoppingBag />
           Order
         </Link>
 
          <Link to="/buyerhome/profile" onClick={() => setMenuOpen(false)}>
-         <i className="fa-solid fa-user"></i>
+         {/* <i className="fa-solid fa-user"></i> */}
+         <CgProfile />
           Profile
         </Link>
 

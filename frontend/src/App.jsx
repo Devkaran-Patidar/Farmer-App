@@ -30,6 +30,7 @@ import MyProducts from "./Pages/Farmer_pages/MyProduct.jsx";
 import EditProduct from "./Pages/Farmer_pages/EditProduct.jsx";
 import FarmerOrders from "./Pages/Farmer_pages/FarmerOrders.jsx";
 import FarmerEarnings from "./Pages/Farmer_pages/FarmerEarning.jsx";
+import ProductDetailsfarmer from "./Pages/Farmer_pages/ProductDetailsfarmer.jsx";
 
 // buyer 
 import ProductList from "./Pages/Buyer_pages/ProductList.jsx";
@@ -48,7 +49,8 @@ export default function App() {
   //     setIslogin(true)
   //   }
   // },[]);
-
+  const [cartCount, setCartCount] = useState(0);
+  
   const [islogin, setIslogin] = useState(
     localStorage.getItem("islogin") === "true",
   );
@@ -83,15 +85,15 @@ export default function App() {
             <Route path="editproduct/:id" element={<EditProduct/>} />
             <Route path="farmerorders" element={<FarmerOrders/>} />
             <Route path="farmerearning" element={<FarmerEarnings/>} />
-            <Route path="product/:id" element={<ProductDetails />} />
+            <Route path="product/:id" element={<ProductDetailsfarmer />} />
 
           </Route>
 
 
                         {/* buyer */}
 
-           <Route path="buyerhome" element={<BuyerLayout islogin={islogin} setIslogin={setIslogin} />}>
-            <Route index element={<ProductList />} />
+           <Route path="buyerhome" element={<BuyerLayout islogin={islogin} setIslogin={setIslogin}  setCartCount={setCartCount} cartCount={cartCount}/>}>
+            <Route index element={<ProductList setCartCount={setCartCount} cartCount={cartCount} />} />
              <Route path="profile" element={<Profile />} />
             <Route path="cart" element={<Cart />} />
             <Route path="shop-now" element={<ShopNow />} />

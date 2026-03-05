@@ -105,21 +105,30 @@ def Editproduct(request, id):
 
 from rest_framework.permissions import AllowAny
 from django.db.models import Q
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def AllProducts(request):
-    search = request.GET.get('search', '')  # get search query
-    qs = productModel.objects.all().order_by('-id')
+    search = request.GET.get('search', '')
+    category = request.GET.get('category', '')
+
+    qs = productModel.objects.all()
+
+    # search filter
     if search:
         qs = qs.filter(
             Q(name__icontains=search) |
             Q(category__icontains=search)
         )
-    qs = qs.order_by('?') 
-    serializer = productSerializer(qs, many=True,context={'request': request})
+
+    # category filter
+    if category:
+        qs = qs.filter(category__iexact=category)
+
+    qs = qs.order_by('?')
+
+    serializer = productSerializer(qs, many=True, context={'request': request})
     return Response(serializer.data)
-
-
 
 
 from django.shortcuts import get_object_or_404
