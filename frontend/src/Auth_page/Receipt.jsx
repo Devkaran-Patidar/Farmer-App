@@ -54,7 +54,7 @@ export default function Receipt() {
     const fetchProfile = async () => {
       try {
         const res = await fetch(
-          `${API_BASE}/api/user/profile/${userId}/`,
+          `${API_URL}user/profile/${userId}/`,
           {
             method: "GET",
             headers: {

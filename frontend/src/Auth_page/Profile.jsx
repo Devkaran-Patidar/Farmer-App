@@ -61,7 +61,7 @@ export default function Profile() {
               <img
                 src={
                   profile.avatar
-                    ? `http://localhost:8000${profile.avatar}`
+                    ? `${API_URL}${profile.avatar}`
                     : logo
                 }
                 alt={profile.username}
